@@ -18,7 +18,7 @@
         .section-title {
             font-size: 2.5rem; /* 40px */
             font-weight: 700;
-            margin-bottom: 2rem; /* 32px */
+            margin-bottom: 3rem; /* 48px */ /* Increased margin for timeline */
             text-align: center;
             color: #18181b; /* zinc-900 */
             position: relative;
@@ -70,13 +70,118 @@
         .contact-icon:hover {
             transform: scale(1.1);
         }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #0070D2; /* Salesforce Blue */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px; /* Adjusted for dot centering */
+            background-color: white;
+            border: 4px solid #00A1E0; /* Lighter Salesforce Blue */
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-left {
+            left: 0;
+        }
+        .timeline-right {
+            left: 50%;
+        }
+        .timeline-left::before { /* Arrow */
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+        .timeline-right::before { /* Arrow */
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+        .timeline-right::after {
+            left: -12px; /* Adjusted for dot centering */
+        }
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+         .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Responsive Timeline */
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-container::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+            .timeline-left::after, .timeline-right::after {
+                left: 18px; /* Adjusted for dot centering */
+            }
+            .timeline-right {
+                left: 0%;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
     <nav class="bg-white/80 backdrop-blur-md shadow-md fixed w-full z-50 top-0">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-blue-600">Saurabh Chandra</a>
+            <a href="#" class="text-2xl font-bold text-blue-600 flex items-center">
+                <i class="fab fa-salesforce text-3xl mr-2 text-blue-500"></i> Saurabh Chandra
+            </a>
             <div class="hidden md:flex space-x-4">
                 <a href="#about" class="text-slate-700 nav-link font-medium">About</a>
                 <a href="#experience" class="text-slate-700 nav-link font-medium">Experience</a>
@@ -145,57 +250,69 @@
     <section id="experience" class="py-16 md:py-24 bg-slate-100">
         <div class="container mx-auto px-6">
             <h2 class="section-title">Trailblazing Impact</h2>
-            <div class="space-y-12">
-                <div class="card p-6 md:p-8">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-                        <div>
-                            <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
-                            <p class="text-slate-600 font-medium">Cognizant Technology Solutions</p>
-                        </div>
-                        <p class="text-slate-500 mt-2 md:mt-0">December 2021 - Present</p>
+            <div class="timeline">
+                <div class="timeline-container timeline-left">
+                    <div class="timeline-content card">
+                        <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
+                        <p class="text-slate-600 font-medium">Coolshop, Dubai</p>
+                        <p class="text-slate-500 text-sm mb-3">Recent - Present</p> 
+                        <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
+                            <li>Developed scalable and secure Salesforce applications in an agile environment, following approved life cycle methodologies.</li>
+                            <li>Automated business processes by developing custom workflows, triggers, validation rules, and Process Builder flows.</li>
+                            <li>Built custom UIs and enhanced UX with Lightning Web Components (LWC).</li>
+                            <li>Optimized Apex code with respect to Salesforce governor limits.</li>
+                            <li>Implemented Apex triggers and classes to automate and streamline data processes.</li>
+                            <li>Performed unit testing and deployed changes via Git and Azure DevOps.</li>
+                            <li>Debugged and resolved complex bugs, improving system stability and performance.</li>
+                            <li>Developed and maintained Salesforce integrations with third-party web services and APIs (REST/SOAP).</li>
+                        </ul>
                     </div>
-                    
-                    <div class="mt-6 space-y-6">
-                        <div>
-                            <h4 class="text-xl font-semibold text-slate-700 mb-2">Project: Philips <span class="text-sm text-slate-500 font-normal">(June 2023 - Present)</span></h4>
-                            <ul class="list-disc list-inside text-slate-600 space-y-2 pl-4">
-                                <li>Developed scalable and secure Salesforce applications in an agile environment, following approved life cycle methodologies.</li>
-                                <li>Automated business processes by developing custom workflows, triggers, validation rules, and Process Builder flows.</li>
-                                <li>Built custom UIs and enhanced UX with Lightning Web Components (LWC).</li>
-                                <li>Optimized Apex code with respect to Salesforce governor limits.</li>
-                                <li>Implemented Apex triggers and classes to automate and streamline data processes.</li>
-                                <li>Performed unit testing and deployed changes via Git and Azure DevOps.</li>
-                                <li>Debugged and resolved complex bugs, improving system stability and performance.</li>
-                                <li>Developed and maintained Salesforce integrations with third-party web services and APIs (REST/SOAP).</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold text-slate-700 mb-2">Project: Sydney Markets Limited <span class="text-sm text-slate-500 font-normal">(February 2022 - June 2023)</span></h4>
-                            <ul class="list-disc list-inside text-slate-600 space-y-2 pl-4">
-                                <li>Created and maintained documentation for Salesforce development processes and best practices.</li>
-                                <li>Assisted with Salesforce org design and implementation (users, roles, profiles, custom objects/fields, security).</li>
-                                <li>Developed custom reports and dashboards for management insights.</li>
-                                <li>Implemented various scenarios using validation rules, workflows, and Process Builder.</li>
-                                <li>Developed custom solutions using Apex and Apex Triggers.</li>
-                                <li>Managed deployments via Workbench and Changesets.</li>
-                            </ul>
+                </div>
+
+                <div class="timeline-container timeline-right">
+                    <div class="timeline-content card">
+                        <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
+                        <p class="text-slate-600 font-medium">Cognizant Technology Solutions</p>
+                        <p class="text-slate-500 text-sm mb-3">December 2021 - Recent</p> <div class="mt-4 space-y-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-700 mb-1">Project: Philips <span class="text-xs text-slate-500 font-normal">(June 2023 - Recent)</span></h4>
+                                <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
+                                    <li>Developed scalable and secure Salesforce applications in an agile environment.</li>
+                                    <li>Automated business processes (workflows, triggers, Process Builder).</li>
+                                    <li>Built custom UIs and enhanced UX with LWC.</li>
+                                    <li>Optimized Apex code for governor limits.</li>
+                                    <li>Implemented Apex triggers/classes for data automation.</li>
+                                    <li>Unit testing & deployment (Git, Azure DevOps).</li>
+                                    <li>Bug fixing for system stability/performance.</li>
+                                    <li>Third-party integrations (REST/SOAP APIs).</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-700 mb-1">Project: Sydney Markets Limited <span class="text-xs text-slate-500 font-normal">(February 2022 - June 2023)</span></h4>
+                                <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
+                                    <li>Documentation for Salesforce development processes.</li>
+                                    <li>Salesforce org design and implementation.</li>
+                                    <li>Custom reports and dashboards development.</li>
+                                    <li>Implemented scenarios (validation rules, workflows, Process Builder).</li>
+                                    <li>Custom solutions using Apex and Apex Triggers.</li>
+                                    <li>Deployment via Workbench and Changesets.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card p-6 md:p-8">
-                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-                        <div>
-                            <h3 class="text-2xl font-semibold text-blue-600">Web Developer Intern</h3>
-                            <p class="text-slate-600 font-medium">Shopsky India Pvt. Ltd.</p>
-                        </div>
-                        <p class="text-slate-500 mt-2 md:mt-0">November 2020 - January 2021</p>
+                <div class="timeline-container timeline-left">
+                    <div class="timeline-content card">
+                        <h3 class="text-2xl font-semibold text-blue-600">Web Developer Intern</h3>
+                        <p class="text-slate-600 font-medium">Shopsky India Pvt. Ltd.</p>
+                        <p class="text-slate-500 text-sm mb-3">November 2020 - January 2021</p>
+                        <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
+                            <li>Front-end and back-end development for e-commerce payment page.</li>
+                            <li>Full-stack development for a blogging website.</li>
+                            <li>Tech stack: HTML, CSS, JavaScript, PHP, MySQL, Bootstrap, Materialize CSS.</li>
+                        </ul>
                     </div>
-                    <ul class="list-disc list-inside text-slate-600 space-y-2 pl-4 mt-4">
-                        <li>Contributed to front-end and back-end development of a responsive payment page for an e-commerce website.</li>
-                        <li>Developed front-end and back-end for a blogging website.</li>
-                        <li>Utilized HTML, CSS, JavaScript, PHP, MySQL, Bootstrap, and Materialize CSS.</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -223,7 +340,8 @@
                 <div class="card p-6 text-center">
                     <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
                     <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified JavaScript Developer I</h3>
-                    <p class="text-slate-500">August 2024 (Expected)</p> </div>
+                    <p class="text-slate-500">August 2024 (Expected)</p>
+                </div>
                  <div class="card p-6 text-center">
                     <i class="fas fa-brain text-4xl text-blue-500 mb-4"></i>
                     <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified AI Associate</h3>
@@ -232,7 +350,8 @@
                 <div class="card p-6 text-center">
                     <i class="fas fa-microchip text-4xl text-blue-500 mb-4"></i>
                     <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce AI Specialist</h3>
-                     <p class="text-slate-500">November 2024 (Expected)</p> </div>
+                     <p class="text-slate-500">November 2024 (Expected)</p>
+                </div>
             </div>
             <p class="text-center mt-10 text-lg text-slate-600">
                 Plus <strong class="text-blue-600">31 Trailhead Superbadges</strong> showcasing continuous learning and mastery!
@@ -261,7 +380,7 @@
                     <div class="flex flex-wrap gap-2">
                         <span class="tag">Sales Cloud</span>
                         <span class="tag">Experience Cloud</span>
-                        </div>
+                    </div>
                 </div>
                 <div class="card p-6">
                     <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-project-diagram mr-2"></i>Integration & Automation</h3>
@@ -301,30 +420,30 @@
     <section id="education" class="py-16 md:py-24 bg-white">
         <div class="container mx-auto px-6">
             <h2 class="section-title">Learning Path</h2>
-            <div class="max-w-2xl mx-auto space-y-8">
-                <div class="card p-6">
-                    <div class="flex justify-between items-center">
+            <div class="timeline">
+                <div class="timeline-container timeline-left">
+                    <div class="timeline-content card">
                         <h3 class="text-xl font-semibold text-slate-700">B.Tech Computer Science</h3>
-                        <p class="text-slate-500">2017 - 2021</p>
+                        <p class="text-blue-600 font-medium">Lucknow University</p>
+                        <p class="text-slate-500 text-sm">2017 - 2021</p>
+                        <p class="text-slate-600 mt-1">CGPA: 7.3</p>
                     </div>
-                    <p class="text-blue-600 font-medium">Lucknow University</p>
-                    <p class="text-slate-600">CGPA: 7.3</p>
                 </div>
-                <div class="card p-6">
-                     <div class="flex justify-between items-center">
+                <div class="timeline-container timeline-right">
+                    <div class="timeline-content card">
                         <h3 class="text-xl font-semibold text-slate-700">12th CBSE</h3>
-                        <p class="text-slate-500">2016</p>
+                        <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
+                        <p class="text-slate-500 text-sm">2016</p>
+                        <p class="text-slate-600 mt-1">Percentage: 87%</p>
                     </div>
-                    <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
-                    <p class="text-slate-600">Percentage: 87%</p>
                 </div>
-                <div class="card p-6">
-                    <div class="flex justify-between items-center">
+                <div class="timeline-container timeline-left">
+                    <div class="timeline-content card">
                         <h3 class="text-xl font-semibold text-slate-700">10th CBSE</h3>
-                        <p class="text-slate-500">2014</p>
+                        <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
+                        <p class="text-slate-500 text-sm">2014</p>
+                        <p class="text-slate-600 mt-1">CGPA: 10</p>
                     </div>
-                    <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
-                    <p class="text-slate-600">CGPA: 10</p>
                 </div>
             </div>
         </div>
@@ -383,11 +502,9 @@
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-                // Check if target is not just '#' (home) to prevent errors with document.querySelector
-                if (targetId.length > 1) {
+                if (targetId.length > 1) { // Check if target is not just '#'
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                         // Adjust for fixed navbar height if necessary
                         const navbarHeight = document.querySelector('nav').offsetHeight;
                         const elementPosition = targetElement.getBoundingClientRect().top;
                         const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
@@ -396,10 +513,8 @@
                             top: offsetPosition,
                             behavior: "smooth"
                         });
-                    } else if (targetId === '#home') { // Special case for home if needed
-                         window.scrollTo({ top: 0, behavior: "smooth" });
                     }
-                } else if (targetId === '#') { // For links like <a href="#">Saurabh Chandra</a>
+                } else if (targetId === '#') { // For home link <a href="#">
                      window.scrollTo({ top: 0, behavior: "smooth" });
                 }
             });
