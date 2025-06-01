@@ -12,6 +12,9 @@
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex;
+            flex-direction: column;
         }
         .trailblazer-header {
             background: linear-gradient(135deg, #0070D2 0%, #00A1E0 100%); /* Salesforce blue gradient */
@@ -182,6 +185,14 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+        /* Ensure footer stays at bottom */
+        .main-content {
+            flex: 1 0 auto; /* Allow main content to grow but not shrink */
+        }
+        footer {
+            flex-shrink: 0; /* Prevent footer from shrinking */
+            width: 100%;
+        }
         /* Accessibility: Disable animations for prefers-reduced-motion */
         @media (prefers-reduced-motion: reduce) {
             * {
@@ -244,276 +255,278 @@
         </div>
     </nav>
 
-    <header id="home" class="trailblazer-header text-white pt-32 pb-20 md:pt-40 md:pb-28">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up" data-aos-duration="1000">Saurabh Chandra</h1>
-            <p class="text-xl md:text-2xl mb-8 font-medium" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Salesforce Developer || Architecting Innovative CRM Solutions</p>
-            <div class="flex justify-center space-x-4 md:space-x-6 mb-10">
-                <div class="stat-card p-4 rounded-lg text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                    <p class="text-3xl font-bold">6x</p>
-                    <p class="text-sm">Salesforce Certified</p>
-                </div>
-                <div class="stat-card p-4 rounded-lg text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <p class="text-3xl font-bold">31</p>
-                    <p class="text-sm">Trailhead Superbadges</p>
-                </div>
-                <div class="stat-card p-4 rounded-lg text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="800">
-                    <p class="text-3xl font-bold">3+</p>
-                    <p class="text-sm">Years of Experience</p>
-                </div>
-            </div>
-            <a href="#contact" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-slate-100 transition duration-300 text-lg shadow-lg cta-button" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
-                Let's Innovate Together <i class="fas fa-arrow-right ml-2"></i>
-            </a>
-        </div>
-    </header>
-
-    <section id="about" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-            <h2 class="section-title">My Salesforce Journey</h2>
-            <div class="max-w-3xl mx-auto text-center text-lg text-slate-700 leading-relaxed">
-                <p class="mb-6">
-                    I'm a passionate Salesforce professional with 3 years of hands-on experience in crafting robust solutions using Apex, Apex test classes & triggers, REST/SOAP APIs, and Lightning Web Components. My journey in the Salesforce ecosystem is driven by a commitment to transforming business requirements into scalable, high-performance applications.
-                </p>
-                <p class="mb-6">
-                    I firmly believe in Salesforce best practices and design patterns, ensuring every solution aligns with platform governance and future scalability. I thrive on optimizing code against governor limits and building intuitive user experiences.
-                </p>
-                <p>
-                    Seeking new opportunities to leverage my skills and contribute to dynamic projects within a collaborative "Ohana" (environment), I'm excited to tackle new challenges and drive innovation.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" class="py-16 md:py-24 bg-slate-100">
-        <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-            <h2 class="section-title">Trailblazing Impact</h2>
-            <div class="timeline">
-                <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                    <div class="timeline-content card">
-                        <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
-                        <p class="text-slate-600 font-medium">Coolshop, Dubai</p>
-                        <p class="text-slate-500 text-sm mb-3">Recent - Present</p> 
-                        <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
-                            <li>Developed scalable and secure Salesforce applications in an agile environment, following approved life cycle methodologies.</li>
-                            <li>Automated business processes by developing custom workflows, triggers, validation rules, and Process Builder flows.</li>
-                            <li>Built custom UIs and enhanced UX with Lightning Web Components (LWC).</li>
-                            <li>Optimized Apex code with respect to Salesforce governor limits.</li>
-                            <li>Implemented Apex triggers and classes to automate and streamline data processes.</li>
-                            <li>Performed unit testing and deployed changes via Git and Azure DevOps.</li>
-                            <li>Debugged and resolved complex bugs, improving system stability and performance.</li>
-                            <li>Developed and maintained Salesforce integrations with third-party web services and APIs (REST/SOAP).</li>
-                        </ul>
+    <div class="main-content">
+        <header id="home" class="trailblazer-header text-white pt-32 pb-20 md:pt-40 md:pb-28">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up" data-aos-duration="1000">Saurabh Chandra</h1>
+                <p class="text-xl md:text-2xl mb-8 font-medium" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Salesforce Developer || Architecting Innovative CRM Solutions</p>
+                <div class="flex justify-center space-x-4 md:space-x-6 mb-10">
+                    <div class="stat-card p-4 rounded-lg text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                        <p class="text-3xl font-bold">6x</p>
+                        <p class="text-sm">Salesforce Certified</p>
+                    </div>
+                    <div class="stat-card p-4 rounded-lg text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+                        <p class="text-3xl font-bold">31</p>
+                        <p class="text-sm">Trailhead Superbadges</p>
+                    </div>
+                    <div class="stat-card p-4 rounded-lg text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="800">
+                        <p class="text-3xl font-bold">3+</p>
+                        <p class="text-sm">Years of Experience</p>
                     </div>
                 </div>
+                <a href="#contact" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-slate-100 transition duration-300 text-lg shadow-lg cta-button" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
+                    Let's Innovate Together <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </header>
 
-                <div class="timeline-container timeline-right" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    <div class="timeline-content card">
-                        <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
-                        <p class="text-slate-600 font-medium">Cognizant Technology Solutions</p>
-                        <p class="text-slate-500 text-sm mb-3">December 2021 - Recent</p> 
-                        <div class="mt-4 space-y-4">
-                            <div>
-                                <h4 class="text-lg font-semibold text-slate-700 mb-1">Project: Philips <span class="text-xs text-slate-500 font-normal">(June 2023 - Recent)</span></h4>
-                                <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
-                                    <li>Developed scalable and secure Salesforce applications in an agile environment.</li>
-                                    <li>Automated business processes (workflows, triggers, Process Builder).</li>
-                                    <li>Built custom UIs and enhanced UX with LWC.</li>
-                                    <li>Optimized Apex code for governor limits.</li>
-                                    <li>Implemented Apex triggers/classes for data automation.</li>
-                                    <li>Unit testing & deployment (Git, Azure DevOps).</li>
-                                    <li>Bug fixing for system stability/performance.</li>
-                                    <li>Third-party integrations (REST/SOAP APIs).</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-slate-700 mb-1">Project: Sydney Markets Limited <span class="text-xs text-slate-500 font-normal">(February 2022 - June 2023)</span></h4>
-                                <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
-                                    <li>Documentation for Salesforce development processes.</li>
-                                    <li>Salesforce org design and implementation.</li>
-                                    <li>Custom reports and dashboards development.</li>
-                                    <li>Implemented scenarios (validation rules, workflows, Process Builder).</li>
-                                    <li>Custom solutions using Apex and Apex Triggers.</li>
-                                    <li>Deployment via Workbench and Changesets.</li>
-                                </ul>
+        <section id="about" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
+                <h2 class="section-title">My Salesforce Journey</h2>
+                <div class="max-w-3xl mx-auto text-center text-lg text-slate-700 leading-relaxed">
+                    <p class="mb-6">
+                        I'm a passionate Salesforce professional with 3 years of hands-on experience in crafting robust solutions using Apex, Apex test classes & triggers, REST/SOAP APIs, and Lightning Web Components. My journey in the Salesforce ecosystem is driven by a commitment to transforming business requirements into scalable, high-performance applications.
+                    </p>
+                    <p class="mb-6">
+                        I firmly believe in Salesforce best practices and design patterns, ensuring every solution aligns with platform governance and future scalability. I thrive on optimizing code against governor limits and building intuitive user experiences.
+                    </p>
+                    <p>
+                        Seeking new opportunities to leverage my skills and contribute to dynamic projects within a collaborative "Ohana" (environment), I'm excited to tackle new challenges and drive innovation.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-16 md:py-24 bg-slate-100">
+            <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
+                <h2 class="section-title">Trailblazing Impact</h2>
+                <div class="timeline">
+                    <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                        <div class="timeline-content card">
+                            <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
+                            <p class="text-slate-600 font-medium">Coolshop, Dubai</p>
+                            <p class="text-slate-500 text-sm mb-3">Recent - Present</p> 
+                            <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
+                                <li>Developed scalable and secure Salesforce applications in an agile environment, following approved life cycle methodologies.</li>
+                                <li>Automated business processes by developing custom workflows, triggers, validation rules, and Process Builder flows.</li>
+                                <li>Built custom UIs and enhanced UX with Lightning Web Components (LWC).</li>
+                                <li>Optimized Apex code with respect to Salesforce governor limits.</li>
+                                <li>Implemented Apex triggers and classes to automate and streamline data processes.</li>
+                                <li>Performed unit testing and deployed changes via Git and Azure DevOps.</li>
+                                <li>Debugged and resolved complex bugs, improving system stability and performance.</li>
+                                <li>Developed and maintained Salesforce integrations with third-party web services and APIs (REST/SOAP).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-container timeline-right" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <div class="timeline-content card">
+                            <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
+                            <p class="text-slate-600 font-medium">Cognizant Technology Solutions</p>
+                            <p class="text-slate-500 text-sm mb-3">December 2021 - Recent</p> 
+                            <div class="mt-4 space-y-4">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-slate-700 mb-1">Project: Philips <span class="text-xs text-slate-500 font-normal">(June 2023 - Recent)</span></h4>
+                                    <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
+                                        <li>Developed scalable and secure Salesforce applications in an agile environment.</li>
+                                        <li>Automated business processes (workflows, triggers, Process Builder).</li>
+                                        <li>Built custom UIs and enhanced UX with LWC.</li>
+                                        <li>Optimized Apex code for governor limits.</li>
+                                        <li>Implemented Apex triggers/classes for data automation.</li>
+                                        <li>Unit testing & deployment (Git, Azure DevOps).</li>
+                                        <li>Bug fixing for system stability/performance.</li>
+                                        <li>Third-party integrations (REST/SOAP APIs).</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-slate-700 mb-1">Project: Sydney Markets Limited <span class="text-xs text-slate-500 font-normal">(February 2022 - June 2023)</span></h4>
+                                    <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
+                                        <li>Documentation for Salesforce development processes.</li>
+                                        <li>Salesforce org design and implementation.</li>
+                                        <li>Custom reports and dashboards development.</li>
+                                        <li>Implemented scenarios (validation rules, workflows, Process Builder).</li>
+                                        <li>Custom solutions using Apex and Apex Triggers.</li>
+                                        <li>Deployment via Workbench and Changesets.</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <div class="timeline-content card">
-                        <h3 class="text-2xl font-semibold text-blue-600">Web Developer Intern</h3>
-                        <p class="text-slate-600 font-medium">Shopsky India Pvt. Ltd.</p>
-                        <p class="text-slate-500 text-sm mb-3">November 2020 - January 2021</p>
-                        <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
-                            <li>Front-end and back-end development for e-commerce payment page.</li>
-                            <li>Full-stack development for a blogging website.</li>
-                            <li>Tech stack: HTML, CSS, JavaScript, PHP, MySQL, Bootstrap, Materialize CSS.</li>
-                        </ul>
+                    <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                        <div class="timeline-content card">
+                            <h3 class="text-2xl font-semibold text-blue-600">Web Developer Intern</h3>
+                            <p class="text-slate-600 font-medium">Shopsky India Pvt. Ltd.</p>
+                            <p class="text-slate-500 text-sm mb-3">November 2020 - January 2021</p>
+                            <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
+                                <li>Front-end and back-end development for e-commerce payment page.</li>
+                                <li>Full-stack development for a blogging website.</li>
+                                <li>Tech stack: HTML, CSS, JavaScript, PHP, MySQL, Bootstrap, Materialize CSS.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="certifications" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-            <h2 class="section-title">Credentials Cloud</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                    <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Administrator (SCA)</h3>
-                    <p class="text-slate-500">July 2022</p>
+        <section id="certifications" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
+                <h2 class="section-title">Credentials Cloud</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                        <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Administrator (SCA)</h3>
+                        <p class="text-slate-500">July 2022</p>
+                    </div>
+                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Platform Developer I</h3>
+                        <p class="text-slate-500">December 2022</p>
+                    </div>
+                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                        <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Platform App Builder</h3>
+                        <p class="text-slate-500">May 2023</p>
+                    </div>
+                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                        <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified JavaScript Developer I</h3>
+                        <p class="text-slate-500">August 2024 (Expected)</p>
+                    </div>
+                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+                        <i class="fas fa-brain text-4xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified AI Associate</h3>
+                        <p class="text-slate-500">February 2024</p>
+                    </div>
+                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+                        <i class="fas fa-microchip text-4xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce AI Specialist</h3>
+                        <p class="text-slate-500">November 2024 (Expected)</p>
+                    </div>
                 </div>
-                <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Platform Developer I</h3>
-                    <p class="text-slate-500">December 2022</p>
-                </div>
-                <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Platform App Builder</h3>
-                    <p class="text-slate-500">May 2023</p>
-                </div>
-                <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                    <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified JavaScript Developer I</h3>
-                    <p class="text-slate-500">August 2024 (Expected)</p>
-                </div>
-                <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
-                    <i class="fas fa-brain text-4xl text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified AI Associate</h3>
-                    <p class="text-slate-500">February 2024</p>
-                </div>
-                <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <i class="fas fa-microchip text-4xl text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce AI Specialist</h3>
-                    <p class="text-slate-500">November 2024 (Expected)</p>
-                </div>
+                <p class="text-center mt-10 text-lg text-slate-600" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700">
+                    Plus <strong class="text-blue-600">31 Trailhead Superbadges</strong> showcasing continuous learning and mastery!
+                </p>
             </div>
-            <p class="text-center mt-10 text-lg text-slate-600" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700">
-                Plus <strong class="text-blue-600">31 Trailhead Superbadges</strong> showcasing continuous learning and mastery!
-            </p>
-        </div>
-    </section>
+        </section>
 
-    <section id="skills" class="py-16 md:py-24 bg-slate-100">
-        <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-            <h2 class="section-title">My Solution Stack</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-cogs mr-2"></i>Salesforce Core</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="tag">Apex Programming</span>
-                        <span class="tag">Apex Triggers</span>
-                        <span class="tag">Lightning Web Components (LWC)</span>
-                        <span class="tag">Aura Components</span>
-                        <span class="tag">Visualforce</span>
-                        <span class="tag">SOQL/SOSL</span>
-                        <span class="tag">Salesforce Administration</span>
+        <section id="skills" class="py-16 md:py-24 bg-slate-100">
+            <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
+                <h2 class="section-title">My Solution Stack</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-cogs mr-2"></i>Salesforce Core</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag">Apex Programming</span>
+                            <span class="tag">Apex Triggers</span>
+                            <span class="tag">Lightning Web Components (LWC)</span>
+                            <span class="tag">Aura Components</span>
+                            <span class="tag">Visualforce</span>
+                            <span class="tag">SOQL/SOSL</span>
+                            <span class="tag">Salesforce Administration</span>
+                        </div>
                     </div>
-                </div>
-                <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-cloud mr-2"></i>Platforms & Clouds</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="tag">Sales Cloud</span>
-                        <span class="tag">Experience Cloud</span>
+                    <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-cloud mr-2"></i>Platforms & Clouds</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag">Sales Cloud</span>
+                            <span class="tag">Experience Cloud</span>
+                        </div>
                     </div>
-                </div>
-                <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-project-diagram mr-2"></i>Integration & Automation</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="tag">REST/SOAP API Integration</span>
-                        <span class="tag">Workflows</span>
-                        <span class="tag">Process Builder / Flows</span>
-                        <span class="tag">Validation Rules</span>
+                    <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-project-diagram mr-2"></i>Integration & Automation</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag">REST/SOAP API Integration</span>
+                            <span class="tag">Workflows</span>
+                            <span class="tag">Process Builder / Flows</span>
+                            <span class="tag">Validation Rules</span>
+                        </div>
                     </div>
-                </div>
-                <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-code mr-2"></i>Web Technologies</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
-                        <span class="tag">PHP</span>
-                        <span class="tag">MySQL</span>
-                        <span class="tag">Bootstrap</span>
-                        <span class="tag">Materialize CSS</span>
+                    <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-code mr-2"></i>Web Technologies</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">PHP</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">Bootstrap</span>
+                            <span class="tag">Materialize CSS</span>
+                        </div>
                     </div>
-                </div>
-                <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-tools mr-2"></i>DevOps & Tools</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="tag">Git</span>
-                        <span class="tag">Azure DevOps</span>
-                        <span class="tag">Workbench</span>
-                        <span class="tag">Changesets</span>
-                        <span class="tag">Unit Testing</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="education" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-            <h2 class="section-title">Learning Path</h2>
-            <div class="timeline">
-                <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                    <div class="timeline-content card">
-                        <h3 class="text-xl font-semibold text-slate-700">B.Tech Computer Science</h3>
-                        <p class="text-blue-600 font-medium">Lucknow University</p>
-                        <p class="text-slate-500 text-sm">2017 - 2021</p>
-                        <p class="text-slate-600 mt-1">CGPA: 7.3</p>
-                    </div>
-                </div>
-                <div class="timeline-container timeline-right" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    <div class="timeline-content card">
-                        <h3 class="text-xl font-semibold text-slate-700">12th CBSE</h3>
-                        <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
-                        <p class="text-slate-500 text-sm">2014</p>
-                        <p class="text-slate-600 mt-1">Percentage: 87%</p>
-                    </div>
-                </div>
-                <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <div class="timeline-content card">
-                        <h3 class="text-xl font-semibold text-slate-700">10th CBSE</h3>
-                        <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
-                        <p class="text-slate-500 text-sm">2014</p>
-                        <p class="text-slate-600 mt-1">CGPA: 10</p>
+                    <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-tools mr-2"></i>DevOps & Tools</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag">Git</span>
+                            <span class="tag">Azure DevOps</span>
+                            <span class="tag">Workbench</span>
+                            <span class="tag">Changesets</span>
+                            <span class="tag">Unit Testing</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact" class="py-16 md:py-24 trailblazer-header text-white">
-        <div class="container mx-auto px-6 text-center" data-aos="fade-up" data-aos-duration="1000">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let's Connect & Innovate!</h2>
-            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                I'm always excited to discuss new projects, innovative ideas, or opportunities to contribute to the Salesforce ecosystem. Feel free to reach out!
-            </p>
-            <div class="flex flex-wrap justify-center items-center gap-6 md:gap-8" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                <a href="mailto:chandrasaurabh101999@gmail.com" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
-                    <i class="fas fa-envelope text-2xl"></i> 
-                    <span>chandrasaurabh101999@gmail.com</span>
-                </a>
-                <a href="tel:8090515380" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
-                    <i class="fas fa-phone-alt text-2xl"></i>
-                    <span>8090515380</span>
-                </a>
-                <a href="https://linkedin.com/in/saurabh-c-8639a11b3" target="_blank" rel="noopener noreferrer" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
-                    <i class="fab fa-linkedin text-2xl"></i>
-                    <span>LinkedIn Profile</span>
-                </a>
-                <a href="https://trailblazer.me/id/schandra007" target="_blank" rel="noopener noreferrer" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
-                    <i class="fab fa-salesforce text-2xl"></i> <span>Trailblazer Profile</span>
-                </a>
+        <section id="education" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
+                <h2 class="section-title">Learning Path</h2>
+                <div class="timeline">
+                    <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                        <div class="timeline-content card">
+                            <h3 class="text-xl font-semibold text-slate-700">B.Tech Computer Science</h3>
+                            <p class="text-blue-600 font-medium">Lucknow University</p>
+                            <p class="text-slate-500 text-sm">2017 - 2021</p>
+                            <p class="text-slate-600 mt-1">CGPA: 7.3</p>
+                        </div>
+                    </div>
+                    <div class="timeline-container timeline-right" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <div class="timeline-content card">
+                            <h3 class="text-xl font-semibold text-slate-700">12th CBSE</h3>
+                            <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
+                            <p class="text-slate-500 text-sm">2016</p>
+                            <p class="text-slate-600 mt-1">Percentage: 87%</p>
+                        </div>
+                    </div>
+                    <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                        <div class="timeline-content card">
+                            <h3 class="text-xl font-semibold text-slate-700">10th CBSE</h3>
+                            <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
+                            <p class="text-slate-500 text-sm">2014</p>
+                            <p class="text-slate-600 mt-1">CGPA: 10</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p class="mt-8 text-slate-300" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><i class="fas fa-map-marker-alt mr-2"></i>Dubai, United Arab Emirates</p>
-        </div>
-    </section>
+        </section>
+
+        <section id="contact" class="py-16 md:py-24 trailblazer-header text-white">
+            <div class="container mx-auto px-6 text-center" data-aos="fade-up" data-aos-duration="1000">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let's Connect & Innovate!</h2>
+                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                    I'm always excited to discuss new projects, innovative ideas, or opportunities to contribute to the Salesforce ecosystem. Feel free to reach out!
+                </p>
+                <div class="flex flex-wrap justify-center items-center gap-6 md:gap-8" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                    <a href="mailto:chandrasaurabh101999@gmail.com" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
+                        <i class="fas fa-envelope text-2xl"></i> 
+                        <span>chandrasaurabh101999@gmail.com</span>
+                    </a>
+                    <a href="tel:8090515380" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
+                        <i class="fas fa-phone-alt text-2xl"></i>
+                        <span>8090515380</span>
+                    </a>
+                    <a href="https://linkedin.com/in/saurabh-c-8639a11b3" target="_blank" rel="noopener noreferrer" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                        <span>LinkedIn Profile</span>
+                    </a>
+                    <a href="https://trailblazer.me/id/schandra007" target="_blank" rel="noopener noreferrer" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
+                        <i class="fab fa-salesforce text-2xl"></i> <span>Trailblazer Profile</span>
+                    </a>
+                </div>
+                <p class="mt-8 text-slate-300" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><i class="fas fa-map-marker-alt mr-2"></i>Dubai, United Arab Emirates</p>
+            </div>
+        </section>
+    </div>
 
     <footer class="bg-slate-800 text-slate-300 py-8 text-center" data-aos="fade-up" data-aos-duration="1000">
         <p>© <span id="currentYear"></span> Saurabh Chandra. All rights reserved.</p>
@@ -522,8 +535,11 @@
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init();
+        // Initialize AOS with offset to ensure footer visibility
+        AOS.init({
+            offset: 200, // Trigger animations earlier to account for fixed nav
+            once: true, // Animate only once on scroll
+        });
 
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
