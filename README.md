@@ -1,1 +1,412 @@
-# schandra1008.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saurabh Chandra - Salesforce Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .trailblazer-header {
+            background: linear-gradient(135deg, #0070D2 0%, #00A1E0 100%); /* Salesforce blue gradient */
+        }
+        .section-title {
+            font-size: 2.5rem; /* 40px */
+            font-weight: 700;
+            margin-bottom: 2rem; /* 32px */
+            text-align: center;
+            color: #18181b; /* zinc-900 */
+            position: relative;
+            padding-bottom: 1rem; /* 16px */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #0070D2; /* Salesforce blue */
+            border-radius: 2px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .tag {
+            background-color: #E0F2FE; /* light blue for tags */
+            color: #0070D2; /* Salesforce blue */
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* pill shape */
+            font-size: 0.875rem; /* 14px */
+            font-weight: 500;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #00A1E0; /* Lighter Salesforce blue for hover */
+        }
+        .stat-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .contact-icon {
+            transition: transform 0.3s ease;
+        }
+        .contact-icon:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <nav class="bg-white/80 backdrop-blur-md shadow-md fixed w-full z-50 top-0">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">Saurabh Chandra</a>
+            <div class="hidden md:flex space-x-4">
+                <a href="#about" class="text-slate-700 nav-link font-medium">About</a>
+                <a href="#experience" class="text-slate-700 nav-link font-medium">Experience</a>
+                <a href="#certifications" class="text-slate-700 nav-link font-medium">Certifications</a>
+                <a href="#skills" class="text-slate-700 nav-link font-medium">Skills</a>
+                <a href="#education" class="text-slate-700 nav-link font-medium">Education</a>
+                <a href="#contact" class="text-slate-700 nav-link font-medium">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-slate-700 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <a href="#about" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">About</a>
+            <a href="#experience" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">Experience</a>
+            <a href="#certifications" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">Certifications</a>
+            <a href="#skills" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">Skills</a>
+            <a href="#education" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">Education</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">Contact</a>
+        </div>
+    </nav>
+
+    <header id="home" class="trailblazer-header text-white pt-32 pb-20 md:pt-40 md:pb-28">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Saurabh Chandra</h1>
+            <p class="text-xl md:text-2xl mb-8 font-medium">Salesforce Developer || Architecting Innovative CRM Solutions</p>
+            <div class="flex justify-center space-x-4 md:space-x-6 mb-10">
+                <div class="stat-card p-4 rounded-lg text-center">
+                    <p class="text-3xl font-bold">6x</p>
+                    <p class="text-sm">Salesforce Certified</p>
+                </div>
+                <div class="stat-card p-4 rounded-lg text-center">
+                    <p class="text-3xl font-bold">31</p>
+                    <p class="text-sm">Trailhead Superbadges</p>
+                </div>
+                <div class="stat-card p-4 rounded-lg text-center">
+                    <p class="text-3xl font-bold">3+</p>
+                    <p class="text-sm">Years of Experience</p>
+                </div>
+            </div>
+            <a href="#contact" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-slate-100 transition duration-300 text-lg shadow-lg">
+                Let's Innovate Together <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </header>
+
+    <section id="about" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">My Salesforce Journey</h2>
+            <div class="max-w-3xl mx-auto text-center text-lg text-slate-700 leading-relaxed">
+                <p class="mb-6">
+                    I'm a passionate Salesforce professional with 3 years of hands-on experience in crafting robust solutions using Apex, Apex test classes & triggers, REST/SOAP APIs, and Lightning Web Components. My journey in the Salesforce ecosystem is driven by a commitment to transforming business requirements into scalable, high-performance applications.
+                </p>
+                <p class="mb-6">
+                    I firmly believe in Salesforce best practices and design patterns, ensuring every solution aligns with platform governance and future scalability. I thrive on optimizing code against governor limits and building intuitive user experiences.
+                </p>
+                <p>
+                    Seeking new opportunities to leverage my skills and contribute to dynamic projects within a collaborative "Ohana" (environment), I'm excited to tackle new challenges and drive innovation.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-16 md:py-24 bg-slate-100">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Trailblazing Impact</h2>
+            <div class="space-y-12">
+                <div class="card p-6 md:p-8">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
+                            <p class="text-slate-600 font-medium">Cognizant Technology Solutions</p>
+                        </div>
+                        <p class="text-slate-500 mt-2 md:mt-0">December 2021 - Present</p>
+                    </div>
+                    
+                    <div class="mt-6 space-y-6">
+                        <div>
+                            <h4 class="text-xl font-semibold text-slate-700 mb-2">Project: Philips <span class="text-sm text-slate-500 font-normal">(June 2023 - Present)</span></h4>
+                            <ul class="list-disc list-inside text-slate-600 space-y-2 pl-4">
+                                <li>Developed scalable and secure Salesforce applications in an agile environment, following approved life cycle methodologies.</li>
+                                <li>Automated business processes by developing custom workflows, triggers, validation rules, and Process Builder flows.</li>
+                                <li>Built custom UIs and enhanced UX with Lightning Web Components (LWC).</li>
+                                <li>Optimized Apex code with respect to Salesforce governor limits.</li>
+                                <li>Implemented Apex triggers and classes to automate and streamline data processes.</li>
+                                <li>Performed unit testing and deployed changes via Git and Azure DevOps.</li>
+                                <li>Debugged and resolved complex bugs, improving system stability and performance.</li>
+                                <li>Developed and maintained Salesforce integrations with third-party web services and APIs (REST/SOAP).</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-slate-700 mb-2">Project: Sydney Markets Limited <span class="text-sm text-slate-500 font-normal">(February 2022 - June 2023)</span></h4>
+                            <ul class="list-disc list-inside text-slate-600 space-y-2 pl-4">
+                                <li>Created and maintained documentation for Salesforce development processes and best practices.</li>
+                                <li>Assisted with Salesforce org design and implementation (users, roles, profiles, custom objects/fields, security).</li>
+                                <li>Developed custom reports and dashboards for management insights.</li>
+                                <li>Implemented various scenarios using validation rules, workflows, and Process Builder.</li>
+                                <li>Developed custom solutions using Apex and Apex Triggers.</li>
+                                <li>Managed deployments via Workbench and Changesets.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-6 md:p-8">
+                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-blue-600">Web Developer Intern</h3>
+                            <p class="text-slate-600 font-medium">Shopsky India Pvt. Ltd.</p>
+                        </div>
+                        <p class="text-slate-500 mt-2 md:mt-0">November 2020 - January 2021</p>
+                    </div>
+                    <ul class="list-disc list-inside text-slate-600 space-y-2 pl-4 mt-4">
+                        <li>Contributed to front-end and back-end development of a responsive payment page for an e-commerce website.</li>
+                        <li>Developed front-end and back-end for a blogging website.</li>
+                        <li>Utilized HTML, CSS, JavaScript, PHP, MySQL, Bootstrap, and Materialize CSS.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Credentials Cloud</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6 text-center">
+                    <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Administrator (SCA)</h3>
+                    <p class="text-slate-500">July 2022</p>
+                </div>
+                <div class="card p-6 text-center">
+                    <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Platform Developer I</h3>
+                    <p class="text-slate-500">December 2022</p>
+                </div>
+                <div class="card p-6 text-center">
+                    <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Platform App Builder</h3>
+                    <p class="text-slate-500">May 2023</p>
+                </div>
+                <div class="card p-6 text-center">
+                    <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified JavaScript Developer I</h3>
+                    <p class="text-slate-500">August 2024 (Expected)</p> </div>
+                 <div class="card p-6 text-center">
+                    <i class="fas fa-brain text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified AI Associate</h3>
+                    <p class="text-slate-500">February 2024</p>
+                </div>
+                <div class="card p-6 text-center">
+                    <i class="fas fa-microchip text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce AI Specialist</h3>
+                     <p class="text-slate-500">November 2024 (Expected)</p> </div>
+            </div>
+            <p class="text-center mt-10 text-lg text-slate-600">
+                Plus <strong class="text-blue-600">31 Trailhead Superbadges</strong> showcasing continuous learning and mastery!
+            </p>
+        </div>
+    </section>
+
+    <section id="skills" class="py-16 md:py-24 bg-slate-100">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">My Solution Stack</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-cogs mr-2"></i>Salesforce Core</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Apex Programming</span>
+                        <span class="tag">Apex Triggers</span>
+                        <span class="tag">Lightning Web Components (LWC)</span>
+                        <span class="tag">Aura Components</span>
+                        <span class="tag">Visualforce</span>
+                        <span class="tag">SOQL/SOSL</span>
+                        <span class="tag">Salesforce Administration</span>
+                    </div>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-cloud mr-2"></i>Platforms & Clouds</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Sales Cloud</span>
+                        <span class="tag">Experience Cloud</span>
+                        </div>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-project-diagram mr-2"></i>Integration & Automation</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">REST/SOAP API Integration</span>
+                        <span class="tag">Workflows</span>
+                        <span class="tag">Process Builder / Flows</span>
+                        <span class="tag">Validation Rules</span>
+                    </div>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-code mr-2"></i>Web Technologies</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">PHP</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Bootstrap</span>
+                        <span class="tag">Materialize CSS</span>
+                    </div>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-tools mr-2"></i>DevOps & Tools</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Git</span>
+                        <span class="tag">Azure DevOps</span>
+                        <span class="tag">Workbench</span>
+                        <span class="tag">Changesets</span>
+                        <span class="tag">Unit Testing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Learning Path</h2>
+            <div class="max-w-2xl mx-auto space-y-8">
+                <div class="card p-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-semibold text-slate-700">B.Tech Computer Science</h3>
+                        <p class="text-slate-500">2017 - 2021</p>
+                    </div>
+                    <p class="text-blue-600 font-medium">Lucknow University</p>
+                    <p class="text-slate-600">CGPA: 7.3</p>
+                </div>
+                <div class="card p-6">
+                     <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-semibold text-slate-700">12th CBSE</h3>
+                        <p class="text-slate-500">2016</p>
+                    </div>
+                    <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
+                    <p class="text-slate-600">Percentage: 87%</p>
+                </div>
+                <div class="card p-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-semibold text-slate-700">10th CBSE</h3>
+                        <p class="text-slate-500">2014</p>
+                    </div>
+                    <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
+                    <p class="text-slate-600">CGPA: 10</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-24 trailblazer-header text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Connect & Innovate!</h2>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+                I'm always excited to discuss new projects, innovative ideas, or opportunities to contribute to the Salesforce ecosystem. Feel free to reach out!
+            </p>
+            <div class="flex flex-wrap justify-center items-center gap-6 md:gap-8">
+                <a href="mailto:chandrasaurabh101999@gmail.com" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
+                    <i class="fas fa-envelope text-2xl"></i> 
+                    <span>chandrasaurabh101999@gmail.com</span>
+                </a>
+                <a href="tel:8090515380" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
+                    <i class="fas fa-phone-alt text-2xl"></i>
+                    <span>8090515380</span>
+                </a>
+                <a href="https://linkedin.com/in/saurabh-c-8639a11b3" target="_blank" rel="noopener noreferrer" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
+                    <i class="fab fa-linkedin text-2xl"></i>
+                    <span>LinkedIn Profile</span>
+                </a>
+                <a href="https://trailblazer.me/id/schandra007" target="_blank" rel="noopener noreferrer" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
+                    <i class="fab fa-salesforce text-2xl"></i> <span>Trailblazer Profile</span>
+                </a>
+            </div>
+             <p class="mt-8 text-slate-300"><i class="fas fa-map-marker-alt mr-2"></i>Noida, Uttar Pradesh</p>
+        </div>
+    </section>
+
+    <footer class="bg-slate-800 text-slate-300 py-8 text-center">
+        <p>&copy; <span id="currentYear"></span> Saurabh Chandra. All rights reserved.</p>
+        <p>Crafted with <i class="fas fa-heart text-red-500"></i> and Salesforce <i class="fab fa-salesforce text-blue-400"></i></p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileNavLinks = mobileMenu.querySelectorAll('a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                // Check if target is not just '#' (home) to prevent errors with document.querySelector
+                if (targetId.length > 1) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                         // Adjust for fixed navbar height if necessary
+                        const navbarHeight = document.querySelector('nav').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+                
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    } else if (targetId === '#home') { // Special case for home if needed
+                         window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                } else if (targetId === '#') { // For links like <a href="#">Saurabh Chandra</a>
+                     window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
