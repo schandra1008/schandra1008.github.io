@@ -1,305 +1,252 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saurabh Chandra - Salesforce Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        sf: {
+                            blue: '#0070D2',
+                            light: '#00A1E0',
+                            dark: '#014486',
+                            cloud: '#F4F6F9'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            min-height: 100vh; /* Ensure body takes full viewport height */
-            display: flex;
-            flex-direction: column;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0070D2; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #014486; }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-        .trailblazer-header {
-            background: linear-gradient(135deg, #0070D2 0%, #00A1E0 100%); /* Salesforce blue gradient */
-        }
-        .section-title {
-            font-size: 2.5rem; /* 40px */
-            font-weight: 700;
-            margin-bottom: 3rem; /* 48px */
-            text-align: center;
-            color: #18181b; /* zinc-900 */
-            position: relative;
-            padding-bottom: 1rem; /* 16px */
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 0;
-            width: 80px;
-            height: 4px;
-            background-color: #0070D2; /* Salesforce blue */
-            border-radius: 2px;
-        }
-        .card {
-            background-color: white;
-            border-radius: 0.75rem; /* 12px */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .tag {
-            background-color: #E0F2FE; /* light blue for tags */
-            color: #0070D2; /* Salesforce blue */
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px; /* pill shape */
-            font-size: 0.875rem; /* 14px */
-            font-weight: 500;
-        }
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover {
-            color: #00A1E0; /* Lighter Salesforce blue for hover */
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #00A1E0;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .stat-card {
-            background-color: rgba(255, 255, 255, 0.1);
+        .glass-dark {
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        .contact-icon {
-            transition: transform 0.3s ease;
+
+        /* Animated Background for Hero */
+        .animated-bg {
+            background: linear-gradient(-45deg, #0070D2, #00A1E0, #2E8BC0, #18181b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
-        .contact-icon:hover {
-            transform: scale(1.1);
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        .navbar {
-            animation: slideDown 0.5s ease-out;
-        }
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        .cta-button {
-            transition: transform 0.3s ease;
-        }
-        .cta-button:hover {
-            transform: scale(1.05);
-        }
-        /* Timeline Styles */
-        .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background-color: #0070D2; /* Salesforce Blue */
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-        }
-        .timeline-container {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-        }
-        .timeline-container::after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            right: -12px; /* Adjusted for dot centering */
+
+        /* Cursor Effect for Typewriter */
+        .cursor {
+            display: inline-block;
+            width: 3px;
             background-color: white;
-            border: 4px solid #00A1E0; /* Lighter Salesforce Blue */
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
+            animation: blink 1s infinite;
         }
-        .timeline-left {
-            left: 0;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
-        .timeline-right {
-            left: 50%;
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: #00A1E0; z-index: 9999; transition: width 0.1s;
         }
-        .timeline-left::before { /* Arrow */
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            right: 30px;
-            border: medium solid white;
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent white;
-        }
-        .timeline-right::before { /* Arrow */
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            left: 30px;
-            border: medium solid white;
-            border-width: 10px 10px 10px 0;
-            border-color: transparent white transparent transparent;
-        }
-        .timeline-right::after {
-            left: -12px; /* Adjusted for dot centering */
-        }
-        .timeline-content {
-            padding: 20px 30px;
-            background-color: white;
-            position: relative;
-            border-radius: 0.75rem; /* 12px */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        /* Ensure footer stays at bottom */
-        .main-content {
-            flex: 1 0 auto; /* Allow main content to grow but not shrink */
-        }
-        footer {
-            flex-shrink: 0; /* Prevent footer from shrinking */
-            width: 100%;
-        }
-        /* Accessibility: Disable animations for prefers-reduced-motion */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-        /* Responsive Timeline */
+
+        /* Nav Active State */
+        .nav-link.active { color: #0070D2; }
+        .nav-link.active::after { width: 100%; content: ''; position: absolute; height: 2px; bottom: -2px; left: 0; background-color: #00A1E0; }
+        .nav-link { position: relative; transition: color 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 0; background-color: #00A1E0; transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+
+        /* --- PRESERVED TIMELINE CSS FROM YOUR CODE --- */
+        .timeline { position: relative; max-width: 1200px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 6px; background-color: #0070D2; top: 0; bottom: 0; left: 50%; margin-left: -3px; }
+        .timeline-container { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
+        .timeline-container::after { content: ''; position: absolute; width: 25px; height: 25px; right: -12px; background-color: white; border: 4px solid #00A1E0; top: 15px; border-radius: 50%; z-index: 1; }
+        .timeline-left { left: 0; }
+        .timeline-right { left: 50%; }
+        .timeline-left::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; right: 30px; border: medium solid white; border-width: 10px 0 10px 10px; border-color: transparent transparent transparent white; }
+        .timeline-right::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; left: 30px; border: medium solid white; border-width: 10px 10px 10px 0; border-color: transparent white transparent transparent; }
+        .timeline-right::after { left: -12px; }
+        .timeline-content { padding: 20px 30px; background-color: white; position: relative; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+        .timeline-content:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        
         @media screen and (max-width: 768px) {
-            .timeline::after {
-                left: 31px;
-            }
-            .timeline-container {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-            .timeline-container::before {
-                left: 60px;
-                border: medium solid white;
-                border-width: 10px 10px 10px 0;
-                border-color: transparent white transparent transparent;
-            }
-            .timeline-left::after, .timeline-right::after {
-                left: 18px; /* Adjusted for dot centering */
-            }
-            .timeline-right {
-                left: 0%;
-            }
+            .timeline::after { left: 31px; }
+            .timeline-container { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-container::before { left: 60px; border: medium solid white; border-width: 10px 10px 10px 0; border-color: transparent white transparent transparent; }
+            .timeline-left::after, .timeline-right::after { left: 18px; }
+            .timeline-right { left: 0%; }
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
-    <nav class="bg-white/80 backdrop-blur-md shadow-md fixed w-full z-50 top-0 navbar">
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-blue-200 selection:text-blue-900 flex flex-col min-h-screen">
+    
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="glass fixed w-full z-50 top-0 transition-all duration-300">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-blue-600 flex items-center">
-                <i class="fab fa-salesforce text-3xl mr-2 text-blue-500"></i> Saurabh Chandra
+            <a href="#" class="text-2xl font-bold text-sf-blue flex items-center group">
+                <i class="fab fa-salesforce text-3xl mr-2 group-hover:rotate-180 transition-transform duration-700 text-sf-light"></i> 
+                <span>Saurabh Chandra</span>
             </a>
-            <div class="hidden md:flex space-x-4">
-                <a href="#about" class="text-slate-700 nav-link font-medium">About</a>
-                <a href="#experience" class="text-slate-700 nav-link font-medium">Experience</a>
-                <a href="#certifications" class="text-slate-700 nav-link font-medium">Certifications</a>
-                <a href="#skills" class="text-slate-700 nav-link font-medium">Skills</a>
-                <a href="#education" class="text-slate-700 nav-link font-medium">Education</a>
-                <a href="#contact" class="text-slate-700 nav-link font-medium">Contact</a>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-slate-600 hover:text-sf-blue font-medium text-sm tracking-wide relative py-1 transition-colors">About</a>
+                <a href="#experience" class="nav-link text-slate-600 hover:text-sf-blue font-medium text-sm tracking-wide relative py-1 transition-colors">Experience</a>
+                <a href="#certifications" class="nav-link text-slate-600 hover:text-sf-blue font-medium text-sm tracking-wide relative py-1 transition-colors">Certifications</a>
+                <a href="#skills" class="nav-link text-slate-600 hover:text-sf-blue font-medium text-sm tracking-wide relative py-1 transition-colors">Skills</a>
+                <a href="#education" class="nav-link text-slate-600 hover:text-sf-blue font-medium text-sm tracking-wide relative py-1 transition-colors">Education</a>
+                <a href="#contact" class="px-5 py-2 rounded-full bg-sf-blue text-white text-sm font-medium hover:bg-sf-dark transition-all transform hover:scale-105 shadow-lg shadow-blue-500/30">Contact</a>
             </div>
+
             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-slate-700 focus:outline-none">
+                <button id="mobile-menu-button" class="text-slate-700 hover:text-sf-blue focus:outline-none transition-colors">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
-            <a href="#about" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">About</a>
-            <a href="#experience" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">Experience</a>
-            <a href="#certifications" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">Certifications</a>
-            <a href="#skills" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">Skills</a>
-            <a href="#education" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">Education</a>
-            <a href="#contact" class="block py-2 px-4 text-sm text-slate-700 hover:bg-blue-50">Contact</a>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 absolute w-full left-0 shadow-lg">
+            <div class="flex flex-col py-2">
+                <a href="#about" class="py-3 px-6 text-sm text-slate-700 hover:bg-blue-50 hover:text-sf-blue">About</a>
+                <a href="#experience" class="py-3 px-6 text-sm text-slate-700 hover:bg-blue-50 hover:text-sf-blue">Experience</a>
+                <a href="#certifications" class="py-3 px-6 text-sm text-slate-700 hover:bg-blue-50 hover:text-sf-blue">Certifications</a>
+                <a href="#skills" class="py-3 px-6 text-sm text-slate-700 hover:bg-blue-50 hover:text-sf-blue">Skills</a>
+                <a href="#education" class="py-3 px-6 text-sm text-slate-700 hover:bg-blue-50 hover:text-sf-blue">Education</a>
+                <a href="#contact" class="py-3 px-6 text-sm text-slate-700 hover:bg-blue-50 hover:text-sf-blue">Contact</a>
+            </div>
         </div>
     </nav>
 
-    <div class="main-content">
-        <header id="home" class="trailblazer-header text-white pt-32 pb-20 md:pt-40 md:pb-28">
-            <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up" data-aos-duration="1000">Saurabh Chandra</h1>
-                <p class="text-xl md:text-2xl mb-8 font-medium" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Salesforce Developer || Architecting Innovative CRM Solutions</p>
-                <div class="flex justify-center space-x-4 md:space-x-6 mb-10">
-                    <div class="stat-card p-4 rounded-lg text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                        <p class="text-3xl font-bold">6x</p>
-                        <p class="text-sm">Salesforce Certified</p>
+    <div class="main-content flex-grow">
+        <!-- Hero Section (INTERACTIVE) -->
+        <header id="home" class="animated-bg text-white relative overflow-hidden">
+            <!-- Decorative Blobs -->
+            <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob"></div>
+            <div class="absolute top-0 -right-4 w-72 h-72 bg-yellow-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-2000"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-4000"></div>
+
+            <div class="container mx-auto px-6 py-32 md:py-48 relative z-10 text-center">
+                <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-blue-100 uppercase bg-white/10 rounded-full backdrop-blur-sm border border-white/20" data-aos="fade-down">
+                    Welcome to my Ohana
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight" data-aos="fade-up" data-aos-duration="1000">
+                    Saurabh Chandra
+                </h1>
+                <div class="h-16 mb-8 text-xl md:text-3xl font-medium text-blue-100" data-aos="fade-up" data-aos-delay="200">
+                    I am a <span id="typewriter" class="text-white font-bold border-b-2 border-transparent"></span><span class="cursor">|</span>
+                </div>
+
+                <!-- Floating Stats -->
+                <div class="flex flex-wrap justify-center gap-6 mb-12">
+                    <div class="glass-dark p-4 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300 animate-float" style="animation-delay: 0s;">
+                        <p class="text-3xl font-bold text-white">6x</p>
+                        <p class="text-xs text-blue-100 uppercase tracking-wide">Certified</p>
                     </div>
-                    <div class="stat-card p-4 rounded-lg text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                        <p class="text-3xl font-bold">31</p>
-                        <p class="text-sm">Trailhead Superbadges</p>
+                    <div class="glass-dark p-4 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300 animate-float" style="animation-delay: 1s;">
+                        <p class="text-3xl font-bold text-white">31</p>
+                        <p class="text-xs text-blue-100 uppercase tracking-wide">Superbadges</p>
                     </div>
-                    <div class="stat-card p-4 rounded-lg text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="800">
-                        <p class="text-3xl font-bold">4+</p>
-                        <p class="text-sm">Years of Experience</p>
+                    <div class="glass-dark p-4 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300 animate-float" style="animation-delay: 2s;">
+                        <p class="text-3xl font-bold text-white">4+</p>
+                        <p class="text-xs text-blue-100 uppercase tracking-wide">Years Exp.</p>
                     </div>
                 </div>
-                <a href="#contact" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-slate-100 transition duration-300 text-lg shadow-lg cta-button" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
-                    Let's Innovate Together <i class="fas fa-arrow-right ml-2"></i>
+
+                <a href="#contact" class="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-bold text-sf-blue transition-all duration-200 bg-white font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900" role="button" data-aos="fade-up" data-aos-delay="600">
+                    Let's Innovate Together
+                    <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+                    <div class="absolute -inset-3 rounded-full bg-white opacity-20 group-hover:opacity-40 blur transition duration-200"></div>
                 </a>
+            </div>
+            
+            <!-- Wave Divider -->
+            <div class="absolute bottom-0 w-full overflow-hidden leading-none rotate-180">
+                <svg class="relative block w-[calc(100%+1.3px)] h-[50px] md:h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-slate-50"></path>
+                </svg>
             </div>
         </header>
 
-        <section id="about" class="py-16 md:py-24 bg-white">
+        <!-- About Section (INTERACTIVE) -->
+        <section id="about" class="py-20 md:py-28 bg-slate-50">
             <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-                <h2 class="section-title">My Salesforce Journey</h2>
-                <div class="max-w-3xl mx-auto text-center text-lg text-slate-700 leading-relaxed">
-                    <p class="mb-6">
-                        I'm a passionate Salesforce professional with 4+ years of hands-on experience in crafting robust solutions using Apex, Apex test classes & triggers, REST/SOAP APIs, and Lightning Web Components. My journey in the Salesforce ecosystem is driven by a commitment to transforming business requirements into scalable, high-performance applications.
-                    </p>
-                    <p class="mb-6">
-                        I firmly believe in Salesforce best practices and design patterns, ensuring every solution aligns with platform governance and future scalability. I thrive on optimizing code against governor limits and building intuitive user experiences.
-                    </p>
-                    <p>
-                        Seeking new opportunities to leverage my skills and contribute to dynamic projects within a collaborative "Ohana" (environment), I'm excited to tackle new challenges and drive innovation.
-                    </p>
+                <div class="text-center mb-16">
+                    <span class="text-sf-blue font-semibold tracking-wider uppercase text-sm">Profile</span>
+                    <h2 class="text-4xl font-bold text-slate-800 mt-2">My Salesforce Journey</h2>
+                    <div class="w-20 h-1.5 bg-sf-blue mx-auto mt-4 rounded-full"></div>
+                </div>
+                <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 rounded-full bg-blue-50 transition-transform group-hover:scale-150 duration-700"></div>
+                    <div class="relative z-10 text-lg text-slate-600 leading-relaxed text-center space-y-6">
+                        <p>
+                            I'm a passionate <span class="text-sf-blue font-bold">Salesforce Professional</span> with 4+ years of hands-on experience in crafting robust solutions using <span class="bg-blue-50 text-sf-blue px-2 py-1 rounded">Apex</span>, <span class="bg-blue-50 text-sf-blue px-2 py-1 rounded">REST/SOAP APIs</span>, and <span class="bg-blue-50 text-sf-blue px-2 py-1 rounded">LWC</span>. My journey in the Salesforce ecosystem is driven by a commitment to transforming business requirements into scalable, high-performance applications.
+                        </p>
+                        <p>
+                            I firmly believe in Salesforce best practices and design patterns, ensuring every solution aligns with platform governance and future scalability. I thrive on optimizing code against governor limits and building intuitive user experiences.
+                        </p>
+                        <p>
+                            Seeking new opportunities to leverage my skills and contribute to dynamic projects within a collaborative <span class="italic font-semibold text-sf-blue">"Ohana"</span>, I'm excited to tackle new challenges and drive innovation.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- Experience Section (EXACTLY AS PROVIDED IN YOUR CODE) -->
         <section id="experience" class="py-16 md:py-24 bg-slate-100">
             <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-                <h2 class="section-title">Trailblazing Impact</h2>
+                <div class="text-center mb-16">
+                    <span class="text-sf-blue font-semibold tracking-wider uppercase text-sm">Experience</span>
+                    <h2 class="text-4xl font-bold text-slate-800 mt-2">Trailblazing Impact</h2>
+                    <div class="w-20 h-1.5 bg-sf-blue mx-auto mt-4 rounded-full"></div>
+                </div>
                 <div class="timeline">
                     <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                         <div class="timeline-content card">
@@ -340,14 +287,11 @@
                                 <div>
                                     <h4 class="text-lg font-semibold text-slate-700 mb-1">Project: DMCC <span class="text-xs text-slate-500 font-normal">(Feb 2023 - Dec 2023)</span></h4>
                                     <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
-                                        <li>Collaborated with real-estate stakeholders to model the entire property lifecycle in
-                                            Salesforce — from lead capture (portals/web) to property booking, contract signing,
-                                            move-in, and hand-over — ensuring transparency and operational efficiency.</li>
-                                        <li>Configured and maintained real-estate-specific CRM workflows:</li>
-                                        <li>Worked on commission calculation & installment plan monitoring and collections —
-                                            driving higher productivity and reduced manual effort.</li>
-                                        <li>Developed the functionality of e-signature document generation for sale/lease contracts</li>
-                                        <li>Implemented integrations for real-estate operations improving compliance and client experience.</li>
+                                        <li>Collaborated with real-estate stakeholders to model the entire property lifecycle in Salesforce.</li>
+                                        <li>Configured and maintained real-estate-specific CRM workflows.</li>
+                                        <li>Worked on commission calculation & installment plan monitoring and collections.</li>
+                                        <li>Developed the functionality of e-signature document generation.</li>
+                                        <li>Implemented integrations for real-estate operations.</li>
                                     </ul>
                                 </div>
                                 <div>
@@ -381,217 +325,355 @@
             </div>
         </section>
 
-        <section id="certifications" class="py-16 md:py-24 bg-white">
-            <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-                <h2 class="section-title">Credentials Cloud</h2>
+        <!-- Certifications Section (INTERACTIVE) -->
+        <section id="certifications" class="py-20 md:py-28 bg-slate-50">
+            <div class="container mx-auto px-6" data-aos="fade-up">
+                <div class="text-center mb-16">
+                    <span class="text-sf-blue font-semibold tracking-wider uppercase text-sm">Validation</span>
+                    <h2 class="text-4xl font-bold text-slate-800 mt-2">Credentials Cloud</h2>
+                    <div class="w-20 h-1.5 bg-sf-blue mx-auto mt-4 rounded-full"></div>
+                </div>
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                        <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Administrator (SCA)</h3>
-                        <p class="text-slate-500">July 2022</p>
+                    <!-- Cards with Hover Effects -->
+                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
+                        <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
+                        <div class="flex justify-center mb-6">
+                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
+                                <i class="fas fa-award text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">Salesforce Administrator</h3>
+                        <p class="text-slate-500 text-center text-sm">July 2022</p>
                     </div>
-                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                        <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Platform Developer I</h3>
-                        <p class="text-slate-500">December 2022</p>
+
+                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
+                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
+                        <div class="flex justify-center mb-6">
+                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
+                                <i class="fas fa-code text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">Platform Developer I</h3>
+                        <p class="text-slate-500 text-center text-sm">December 2022</p>
                     </div>
-                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                        <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified Platform App Builder</h3>
-                        <p class="text-slate-500">May 2023</p>
+
+                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
+                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
+                        <div class="flex justify-center mb-6">
+                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
+                                <i class="fas fa-cubes text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">Platform App Builder</h3>
+                        <p class="text-slate-500 text-center text-sm">May 2023</p>
                     </div>
-                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                        <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified JavaScript Developer I</h3>
-                        <p class="text-slate-500">August 2024 (Expected)</p>
+
+                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
+                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
+                        <div class="flex justify-center mb-6">
+                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
+                                <i class="fab fa-js text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">JavaScript Developer I</h3>
+                        <p class="text-slate-500 text-center text-sm">Aug 2024 (Expected)</p>
                     </div>
-                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
-                        <i class="fas fa-brain text-4xl text-blue-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce Certified AI Associate</h3>
-                        <p class="text-slate-500">February 2024</p>
+
+                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
+                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
+                        <div class="flex justify-center mb-6">
+                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
+                                <i class="fas fa-brain text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">AI Associate</h3>
+                        <p class="text-slate-500 text-center text-sm">February 2024</p>
                     </div>
-                    <div class="card p-6 text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                        <i class="fas fa-microchip text-4xl text-blue-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-slate-700 mb-1">Salesforce AI Specialist</h3>
-                        <p class="text-slate-500">November 2024 (Expected)</p>
+
+                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
+                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
+                        <div class="flex justify-center mb-6">
+                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
+                                <i class="fas fa-microchip text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">AI Specialist</h3>
+                        <p class="text-slate-500 text-center text-sm">Nov 2024 (Expected)</p>
                     </div>
                 </div>
-                <p class="text-center mt-10 text-lg text-slate-600" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700">
-                    Plus <strong class="text-blue-600">31 Trailhead Superbadges</strong> showcasing continuous learning and mastery!
-                </p>
             </div>
         </section>
 
-        <section id="skills" class="py-16 md:py-24 bg-slate-100">
-            <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-                <h2 class="section-title">My Solution Stack</h2>
+        <!-- Skills Section (INTERACTIVE) -->
+        <section id="skills" class="py-20 md:py-28 bg-white">
+             <div class="container mx-auto px-6" data-aos="fade-up">
+                <div class="text-center mb-16">
+                    <span class="text-sf-blue font-semibold tracking-wider uppercase text-sm">Expertise</span>
+                    <h2 class="text-4xl font-bold text-slate-800 mt-2">My Solution Stack</h2>
+                    <div class="w-20 h-1.5 bg-sf-blue mx-auto mt-4 rounded-full"></div>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-cogs mr-2"></i>Salesforce Core</h3>
+                    <!-- Skill Card -->
+                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
+                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
+                            <i class="fas fa-cogs mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>Salesforce Core
+                        </h3>
                         <div class="flex flex-wrap gap-2">
-                            <span class="tag">Apex Programming</span>
-                            <span class="tag">Apex Triggers</span>
-                            <span class="tag">Lightning Web Components (LWC)</span>
-                            <span class="tag">Aura Components</span>
-                            <span class="tag">Visualforce</span>
-                            <span class="tag">SOQL/SOSL</span>
-                            <span class="tag">Salesforce Administration</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Apex</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Triggers</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">LWC</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Aura</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">SOQL</span>
                         </div>
                     </div>
-                    <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-cloud mr-2"></i>Platforms & Clouds</h3>
+
+                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
+                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
+                            <i class="fas fa-cloud mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>Platforms
+                        </h3>
                         <div class="flex flex-wrap gap-2">
-                            <span class="tag">Sales Cloud</span>
-                            <span class="tag">Experience Cloud</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Sales Cloud</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Experience Cloud</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Service Cloud</span>
                         </div>
                     </div>
-                    <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-project-diagram mr-2"></i>Integration & Automation</h3>
+
+                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
+                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
+                            <i class="fas fa-project-diagram mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>Integration
+                        </h3>
                         <div class="flex flex-wrap gap-2">
-                            <span class="tag">REST/SOAP API Integration</span>
-                            <span class="tag">Workflows</span>
-                            <span class="tag">Process Builder / Flows</span>
-                            <span class="tag">Validation Rules</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">REST API</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">SOAP</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Flows</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Process Builder</span>
                         </div>
                     </div>
-                    <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-code mr-2"></i>Web Technologies</h3>
+
+                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
+                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
+                            <i class="fas fa-code mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>Web Tech
+                        </h3>
                         <div class="flex flex-wrap gap-2">
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">HTML</span>
-                            <span class="tag">CSS</span>
-                            <span class="tag">PHP</span>
-                            <span class="tag">MySQL</span>
-                            <span class="tag">Bootstrap</span>
-                            <span class="tag">Materialize CSS</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">JavaScript</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">HTML5/CSS3</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Bootstrap</span>
                         </div>
                     </div>
-                    <div class="card p-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-4"><i class="fas fa-tools mr-2"></i>DevOps & Tools</h3>
+
+                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
+                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
+                            <i class="fas fa-tools mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>DevOps
+                        </h3>
                         <div class="flex flex-wrap gap-2">
-                            <span class="tag">Git</span>
-                            <span class="tag">Azure DevOps</span>
-                            <span class="tag">Workbench</span>
-                            <span class="tag">Changesets</span>
-                            <span class="tag">Unit Testing</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Git</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Azure DevOps</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">VS Code</span>
                         </div>
                     </div>
                 </div>
-            </div>
+             </div>
         </section>
 
-        <section id="education" class="py-16 md:py-24 bg-white">
-            <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-                <h2 class="section-title">Learning Path</h2>
-                <div class="timeline">
-                    <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                        <div class="timeline-content card">
-                            <h3 class="text-xl font-semibold text-slate-700">B.Tech Computer Science</h3>
-                            <p class="text-blue-600 font-medium">Lucknow University</p>
-                            <p class="text-slate-500 text-sm">2017 - 2021</p>
-                            <p class="text-slate-600 mt-1">CGPA: 7.3</p>
+        <!-- Education Section (INTERACTIVE) -->
+        <section id="education" class="py-20 md:py-28 bg-slate-50">
+             <div class="container mx-auto px-6" data-aos="fade-up">
+                <div class="text-center mb-16">
+                    <span class="text-sf-blue font-semibold tracking-wider uppercase text-sm">Background</span>
+                    <h2 class="text-4xl font-bold text-slate-800 mt-2">Education</h2>
+                    <div class="w-20 h-1.5 bg-sf-blue mx-auto mt-4 rounded-full"></div>
+                </div>
+                
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <!-- Edu Item -->
+                     <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow flex flex-col md:flex-row justify-between items-center text-center md:text-left border-l-4 border-sf-blue">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">B.Tech Computer Science</h3>
+                            <p class="text-sf-blue font-medium">Lucknow University</p>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                             <span class="bg-blue-50 text-sf-blue px-4 py-2 rounded-full text-sm font-bold">2017 - 2021</span>
+                             <p class="text-sm text-gray-500 mt-2">CGPA: 7.3</p>
                         </div>
                     </div>
-                    <div class="timeline-container timeline-right" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                        <div class="timeline-content card">
-                            <h3 class="text-xl font-semibold text-slate-700">12th CBSE</h3>
-                            <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
-                            <p class="text-slate-500 text-sm">2016</p>
-                            <p class="text-slate-600 mt-1">Percentage: 87%</p>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow flex flex-col md:flex-row justify-between items-center text-center md:text-left border-l-4 border-gray-300">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">12th CBSE</h3>
+                            <p class="text-slate-600 font-medium">Rani Laxmi Bai Memorial School</p>
                         </div>
-                    </div>
-                    <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                        <div class="timeline-content card">
-                            <h3 class="text-xl font-semibold text-slate-700">10th CBSE</h3>
-                            <p class="text-blue-600 font-medium">Rani Laxmi Bai Memorial School</p>
-                            <p class="text-slate-500 text-sm">2014</p>
-                            <p class="text-slate-600 mt-1">CGPA: 10</p>
+                        <div class="mt-4 md:mt-0">
+                             <span class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-bold">2016</span>
+                             <p class="text-sm text-gray-500 mt-2">87%</p>
                         </div>
                     </div>
                 </div>
-            </div>
+             </div>
         </section>
 
-        <section id="contact" class="py-16 md:py-24 trailblazer-header text-white">
-            <div class="container mx-auto px-6 text-center" data-aos="fade-up" data-aos-duration="1000">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let's Connect & Innovate!</h2>
-                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    I'm always excited to discuss new projects, innovative ideas, or opportunities to contribute to the Salesforce ecosystem. Feel free to reach out!
+        <!-- Contact Section (INTERACTIVE) -->
+        <section id="contact" class="py-20 md:py-28 animated-bg text-white relative">
+            <div class="container mx-auto px-6 text-center relative z-10" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's Connect & Innovate!</h2>
+                <p class="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
+                    I'm always excited to discuss new projects, innovative ideas, or opportunities to contribute to the Salesforce ecosystem.
                 </p>
-                <div class="flex flex-wrap justify-center items-center gap-6 md:gap-8" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="mailto:chandrasaurabh101999@gmail.com" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
-                        <i class="fas fa-envelope text-2xl"></i> 
-                        <span>chandrasaurabh101999@gmail.com</span>
+                
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="mailto:chandrasaurabh101999@gmail.com" class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/20 transition-all group flex flex-col items-center w-40">
+                        <i class="fas fa-envelope text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium">Email Me</span>
                     </a>
-                    <a href="tel:8090515380" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
-                        <i class="fas fa-phone-alt text-2xl"></i>
-                        <span>8090515380</span>
+                    <a href="tel:8090515380" class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/20 transition-all group flex flex-col items-center w-40">
+                        <i class="fas fa-phone-alt text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium">Call Me</span>
                     </a>
-                    <a href="https://linkedin.com/in/saurabh-c-8639a11b3" target="_blank" rel="noopener noreferrer" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
-                        <i class="fab fa-linkedin text-2xl"></i>
-                        <span>LinkedIn Profile</span>
+                    <a href="https://linkedin.com/in/saurabh-c-8639a11b3" target="_blank" class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/20 transition-all group flex flex-col items-center w-40">
+                        <i class="fab fa-linkedin text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium">LinkedIn</span>
                     </a>
-                    <a href="https://trailblazer.me/id/schandra007" target="_blank" rel="noopener noreferrer" class="contact-icon flex items-center space-x-2 text-lg hover:text-slate-200">
-                        <i class="fab fa-salesforce text-2xl"></i> <span>Trailblazer Profile</span>
+                    <a href="https://trailblazer.me/id/schandra007" target="_blank" class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/20 transition-all group flex flex-col items-center w-40">
+                        <i class="fab fa-salesforce text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium">Trailblazer</span>
                     </a>
                 </div>
-                <p class="mt-8 text-slate-300" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><i class="fas fa-map-marker-alt mr-2"></i>Dubai, United Arab Emirates</p>
+
+                <div class="mt-16 text-blue-200 text-sm">
+                    <i class="fas fa-map-marker-alt mr-2 animate-bounce"></i> Dubai, United Arab Emirates
+                </div>
             </div>
         </section>
     </div>
 
-    <footer class="bg-slate-800 text-slate-300 py-8 text-center" data-aos="fade-up" data-aos-duration="1000">
-        <p>© <span id="currentYear"></span> Saurabh Chandra. All rights reserved.</p>
-        <p>Crafted with <i class="fas fa-heart text-red-500"></i> and Salesforce <i class="fab fa-salesforce text-blue-400"></i></p>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center border-t border-slate-800">
+        <div class="container mx-auto px-6">
+            <p class="mb-2">© <span id="currentYear"></span> Saurabh Chandra. All rights reserved.</p>
+            <p class="text-sm">Crafted with <i class="fas fa-heart text-red-500 animate-pulse"></i> and Salesforce <i class="fab fa-salesforce text-blue-500"></i> Power</p>
+        </div>
     </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-sf-blue text-white p-4 rounded-full shadow-lg translate-y-20 opacity-0 transition-all duration-300 hover:bg-sf-dark hover:scale-110 z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Initialize AOS with offset to ensure footer visibility
+        // Initialize AOS
         AOS.init({
-            offset: 200, // Trigger animations earlier to account for fixed nav
-            once: true, // Animate only once on scroll
+            offset: 100,
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
         });
 
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        // 1. Typewriter Effect Logic
+        const textElement = document.getElementById('typewriter');
+        const phrases = ["Salesforce Developer", "LWC Expert", "Problem Solver", "Apex Coder"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
 
-        // Close mobile menu when a link is clicked
-        const mobileNavLinks = mobileMenu.querySelectorAll('a');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500; // Pause before new word
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        document.addEventListener('DOMContentLoaded', type);
+
+        // 2. Scroll Handling (Navbar, Progress Bar, Back to Top, Active Link)
+        const navbar = document.getElementById('navbar');
+        const progressBar = document.getElementById('scroll-progress');
+        const backToTopBtn = document.getElementById('back-to-top');
+        const sections = document.querySelectorAll('section, header');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollY = window.scrollY;
+            
+            // Navbar Glass effect intensity
+            if (scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('bg-white/70', 'bg-white/90');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+
+            // Scroll Progress Bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + "%";
+
+            // Back to Top Button
+            if (scrollY > 500) {
+                backToTopBtn.classList.remove('translate-y-20', 'opacity-0');
+            } else {
+                backToTopBtn.classList.add('translate-y-20', 'opacity-0');
+            }
+
+            // Active Link Highlighting
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
             });
-        });
-        
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId.length > 1) { // Check if target is not just '#'
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const navbarHeight = document.querySelector('nav').offsetHeight;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
-                
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: "smooth"
-                        });
-                    }
-                } else if (targetId === '#') { // For home link <a href="#">
-                     window.scrollTo({ top: 0, behavior: "smooth" });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
                 }
             });
         });
 
-        // Set current year in footer
+        // Back to top click
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu on link click
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
