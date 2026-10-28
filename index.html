@@ -68,6 +68,10 @@
       padding: 6rem 0;
       position: relative;
     }
+    section[id],
+    #about {
+      scroll-margin-top: calc(var(--nav-h) + 12px);
+    }
 
     .section-head {
       display: flex;
@@ -304,6 +308,8 @@
       position: relative;
       z-index: 1;
     }
+    .hero-copy-wrap,
+    .hero-visual { min-width: 0; }
     .status-dot {
       width: 8px;
       height: 8px;
@@ -379,6 +385,10 @@
       color: var(--text);
       line-height: 1;
       margin-bottom: 0.45rem;
+      min-height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .stat-value.accent { color: var(--accent-cyan); }
     .stat-label {
@@ -660,74 +670,107 @@
       background: var(--accent);
     }
 
-    /* ——— Experience ——— */
+    /* ——— Experience (alternating tree timeline) ——— */
     .experience { background: var(--bg); }
+    .experience .section-head {
+      justify-content: center;
+      text-align: center;
+    }
+    .experience .section-head h2,
+    .experience .section-lead {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 28ch;
+    }
+    .experience .section-lead { max-width: 52ch; }
     .timeline {
       position: relative;
-      margin-top: 1rem;
+      max-width: 1080px;
+      margin: 0.5rem auto 0;
     }
-    .timeline-track {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
+    .tl-item {
       position: relative;
+      width: 50%;
+      padding: 0 2.75rem 2.5rem 0;
+      box-sizing: border-box;
     }
-    .timeline-track::before {
+    .tl-item.tl-right {
+      left: 50%;
+      padding: 0 0 2.5rem 2.75rem;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    /* Vertical segment from this node to the next */
+    .tl-item:not(:last-child)::before {
       content: "";
       position: absolute;
-      top: 18px;
-      left: 8%;
-      right: 8%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), var(--accent), var(--border), transparent);
+      top: calc(1.45rem + 8px);
+      bottom: calc(-1.45rem - 8px);
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-cyan));
+      box-shadow: 0 0 10px rgba(22, 139, 255, 0.35);
+      z-index: 0;
     }
-    .timeline-card {
-      position: relative;
-      padding-top: 2.6rem;
-    }
-    .timeline-node {
+    .tl-left:not(:last-child)::before { right: -1px; }
+    .tl-right:not(:last-child)::before { left: -1px; }
+    /* Horizontal connector from the node to the card */
+    .tl-item::after {
+      content: "";
       position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: calc(1.45rem + 7px);
+      height: 2px;
+      width: 2.75rem;
+      background: var(--accent-cyan);
+      opacity: 0.85;
+      z-index: 1;
+    }
+    .tl-left::after { right: 0; }
+    .tl-right::after { left: 0; }
+    .tl-node {
+      position: absolute;
+      top: 1.45rem;
       width: 16px;
       height: 16px;
       border-radius: 50%;
       background: var(--bg);
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 0 4px rgba(22, 139, 255, 0.15), 0 0 18px rgba(22, 139, 255, 0.45);
-      z-index: 1;
+      border: 2px solid var(--accent-cyan);
+      box-shadow: 0 0 0 4px rgba(22, 139, 255, 0.16), 0 0 16px rgba(53, 200, 255, 0.55);
+      z-index: 2;
     }
+    .tl-left .tl-node { right: -8px; }
+    .tl-right .tl-node { left: -8px; }
     .role-card {
-      background: rgba(11, 27, 48, 0.7);
+      background: rgba(11, 27, 48, 0.78);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 1.35rem 1.3rem 1.45rem;
-      height: 100%;
-      transition: border-color 0.25s ease, transform 0.25s ease;
+      padding: 1.35rem 1.35rem 1.4rem;
+      text-align: left;
+      position: relative;
+      z-index: 1;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
     .role-card:hover {
-      border-color: rgba(22, 139, 255, 0.45);
-      transform: translateY(-4px);
-    }
-    .role-meta {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent-cyan);
-      margin-bottom: 0.55rem;
-    }
-    .role-card h3 {
-      margin: 0 0 0.25rem;
-      font-size: 1.15rem;
-      font-weight: 750;
-      letter-spacing: -0.02em;
+      border-color: rgba(22, 139, 255, 0.55);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(22, 139, 255, 0.12);
     }
     .role-company {
-      margin: 0 0 1rem;
+      margin: 0 0 0.2rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+    }
+    .role-card h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .role-meta {
+      margin: 0 0 0.95rem;
+      font-size: 0.85rem;
+      font-weight: 600;
       color: var(--text-muted);
-      font-size: 0.92rem;
     }
     .role-card ul {
       margin: 0;
@@ -758,8 +801,9 @@
     /* ——— Certifications ——— */
     .certs { background: var(--bg-secondary); }
     .cert-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 1rem;
     }
     .cert-card {
@@ -770,7 +814,9 @@
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
-      min-height: 150px;
+      min-height: 148px;
+      flex: 1 1 220px;
+      max-width: 260px;
       transition: border-color 0.2s ease, transform 0.2s ease;
     }
     .cert-card:hover {
@@ -795,10 +841,6 @@
       line-height: 1.35;
       letter-spacing: -0.01em;
     }
-    .cert-card:last-child {
-      grid-column: span 1;
-    }
-
     /* ——— Education ——— */
     .education { background: var(--bg); padding-top: 4.5rem; padding-bottom: 4.5rem; }
     .edu-list {
@@ -824,10 +866,23 @@
       color: var(--text-muted);
       font-size: 0.9rem;
     }
+    .edu-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.15rem;
+      text-align: right;
+    }
     .edu-year {
       color: var(--text-muted);
       font-size: 0.85rem;
       font-weight: 600;
+      white-space: nowrap;
+    }
+    .edu-grade {
+      color: var(--accent-cyan);
+      font-size: 0.82rem;
+      font-weight: 700;
       white-space: nowrap;
     }
 
@@ -925,37 +980,47 @@
       .hero-visual { min-height: 340px; }
       .cloud-art { width: min(100%, 420px); }
       .project-grid { grid-template-columns: 1fr 1fr; }
-      .cert-grid { grid-template-columns: repeat(3, 1fr); }
       .skill-groups { grid-template-columns: 1fr 1fr; }
     }
 
-    @media (max-width: 860px) {
+    @media (max-width: 980px) {
       .nav-inner { grid-template-columns: auto auto; justify-content: space-between; }
       .nav-links, .nav-cta { display: none; }
       .nav-toggle { display: inline-flex; }
+    }
+
+    @media (max-width: 860px) {
       .stats-row { grid-template-columns: 1fr 1fr; }
       .stat:nth-child(2) { border-right: none; }
       .stat:nth-child(1),
       .stat:nth-child(2) { border-bottom: 1px solid var(--border); }
       .stat:nth-child(odd) { border-right: 1px solid var(--border); }
-      .timeline-track {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+      .tl-item,
+      .tl-item.tl-left,
+      .tl-item.tl-right {
+        width: 100%;
+        left: 0;
+        padding: 0 0 1.75rem 2.75rem;
       }
-      .timeline-track::before {
-        top: 0;
-        bottom: 0;
+      .tl-item:last-child { padding-bottom: 0; }
+      .tl-item:not(:last-child)::before,
+      .tl-left:not(:last-child)::before,
+      .tl-right:not(:last-child)::before {
         left: 7px;
         right: auto;
-        width: 1px;
-        height: auto;
-        background: linear-gradient(180deg, var(--accent), var(--border));
       }
-      .timeline-card { padding-top: 0; padding-left: 2rem; }
-      .timeline-node {
+      .tl-node,
+      .tl-left .tl-node,
+      .tl-right .tl-node {
         left: 0;
-        top: 1.4rem;
-        transform: none;
+        right: auto;
+      }
+      .tl-item::after,
+      .tl-left::after,
+      .tl-right::after {
+        left: 16px;
+        right: auto;
+        width: calc(2.75rem - 16px);
       }
     }
 
@@ -966,15 +1031,16 @@
       .hero-visual { min-height: 280px; }
       .project-grid { grid-template-columns: 1fr; }
       .skill-groups { grid-template-columns: 1fr; }
-      .cert-grid { grid-template-columns: 1fr 1fr; }
+      .cert-card { flex-basis: calc(50% - 0.5rem); max-width: none; }
       .edu-item { grid-template-columns: 1fr; gap: 0.35rem; }
+      .edu-meta { align-items: flex-start; text-align: left; }
       .section-head h2 { max-width: none; }
       .contact-actions { flex-direction: column; }
       .contact-actions .btn { width: 100%; }
     }
 
     @media (max-width: 420px) {
-      .cert-grid { grid-template-columns: 1fr; }
+      .cert-card { flex-basis: 100%; }
       .stats-row { grid-template-columns: 1fr; }
       .stat { border-right: none !important; border-bottom: 1px solid var(--border); }
       .stat:last-child { border-bottom: none; }
@@ -1166,19 +1232,44 @@
       </div>
     </section>
 
-                <!-- Floating Stats -->
-                <div class="flex flex-wrap justify-center gap-6 mb-12">
-                    <div class="glass-dark p-4 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300 animate-float" style="animation-delay: 0s;">
-                        <p class="text-3xl font-bold text-white">7x</p>
-                        <p class="text-xs text-blue-100 uppercase tracking-wide">Certified</p>
+    <!-- Selected Work -->
+    <section class="section work" id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Selected Work</div>
+            <h2>Real solutions. Measurable impact.</h2>
+          </div>
+          <a class="link-arrow" href="#experience">
+            View All Projects
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card reveal">
+            <div class="project-visual">
+              <div class="mock-window">
+                <div class="mock-chrome"><span></span><span></span><span></span></div>
+                <div class="mock-bars">
+                  <div class="mock-panel">
+                    <div class="mock-line accent"></div>
+                    <div class="mock-line mid"></div>
+                    <div class="mock-chart">
+                      <i style="height:45%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:85%"></i>
                     </div>
-                    <div class="glass-dark p-4 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300 animate-float" style="animation-delay: 1s;">
-                        <p class="text-3xl font-bold text-white">4</p>
-                        <p class="text-xs text-blue-100 uppercase tracking-wide">Salesforce Clouds</p>
-                    </div>
-                    <div class="glass-dark p-4 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300 animate-float" style="animation-delay: 2s;">
-                        <p class="text-3xl font-bold text-white">Dubai</p>
-                        <p class="text-xs text-blue-100 uppercase tracking-wide">UAE</p>
+                  </div>
+                  <div class="mock-panel">
+                    <div class="mock-line accent"></div>
+                    <div class="mock-line short"></div>
+                    <div class="mock-line mid"></div>
+                    <div class="mock-line"></div>
+                  </div>
+                  <div class="mock-panel">
+                    <div class="mock-line accent"></div>
+                    <div class="mock-line short"></div>
+                    <div class="mock-chart">
+                      <i style="height:30%"></i><i style="height:60%"></i><i style="height:40%"></i>
                     </div>
                   </div>
                 </div>
@@ -1195,116 +1286,44 @@
               </div>
               <span class="project-more">Project details <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
             </div>
-        </header>
+          </article>
 
-        <!-- About Section (INTERACTIVE) -->
-        <section id="about" class="py-20 md:py-28 bg-slate-50">
-            <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-                <div class="text-center mb-16">
-                    <span class="text-sf-blue font-semibold tracking-wider uppercase text-sm">Profile</span>
-                    <h2 class="text-4xl font-bold text-slate-800 mt-2">My Salesforce Journey</h2>
-                    <div class="w-20 h-1.5 bg-sf-blue mx-auto mt-4 rounded-full"></div>
-                </div>
-                <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 rounded-full bg-blue-50 transition-transform group-hover:scale-150 duration-700"></div>
-                    <div class="relative z-10 text-lg text-slate-600 leading-relaxed text-center space-y-6">
-                        <p>
-                            Salesforce Developer with end-to-end experience designing, developing, and deploying solutions on <span class="bg-blue-50 text-sf-blue px-2 py-1 rounded">Sales Cloud</span>, <span class="bg-blue-50 text-sf-blue px-2 py-1 rounded">Service Cloud</span>, <span class="bg-blue-50 text-sf-blue px-2 py-1 rounded">Experience Cloud</span>, and <span class="bg-blue-50 text-sf-blue px-2 py-1 rounded">B2B Commerce</span>. Experienced in driving digital transformation initiatives by delivering Salesforce-based digital products that modernize customer journeys, automate business processes, and integrate enterprise systems at scale.
-                        </p>
-                        <p>
-                            Brings deep domain expertise in real estate business processes, including unit inventory management, sales cycle management, reservation workflows, payment schedules, and integration with government platforms. Strong background in web development (PHP, HTML, CSS, JavaScript, Bootstrap) and security model configuration, release management (Git, Azure DevOps), with <span class="text-sf-blue font-bold">7 Salesforce certifications</span>.
-                        </p>
-                        <p>
-                            Based in <span class="italic font-semibold text-sf-blue">Dubai, UAE</span> and open to relocation within the UAE.
-                        </p>
-                    </div>
+          <article class="project-card reveal">
+            <div class="project-visual">
+              <div class="mock-window">
+                <div class="mock-chrome"><span></span><span></span><span></span></div>
+                <div class="mock-nodes">
+                  <div class="mock-node">ERP</div>
+                  <div class="mock-node">B2B</div>
+                  <div class="mock-node">PAY</div>
+                  <div class="mock-node">INV</div>
+                  <div class="mock-node">API</div>
+                  <div class="mock-node">SYNC</div>
                 </div>
               </div>
             </div>
-        </section>
+            <div class="project-body">
+              <h3>B2B Commerce &amp; ERP Integration</h3>
+              <p>Built Salesforce B2B Commerce capabilities with ERP synchronization, inventory workflows, asynchronous integrations, and payment-system connectivity.</p>
+              <div class="tags">
+                <span class="tag">B2B Commerce</span>
+                <span class="tag">REST/SOAP APIs</span>
+                <span class="tag">Platform Events</span>
+                <span class="tag">Azure DevOps</span>
+              </div>
+              <span class="project-more">Project details <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </article>
 
-        <!-- Experience Section (EXACTLY AS PROVIDED IN YOUR CODE) -->
-        <section id="experience" class="py-16 md:py-24 bg-slate-100">
-            <div class="container mx-auto px-6" data-aos="fade-up" data-aos-duration="1000">
-                <div class="text-center mb-16">
-                    <span class="text-sf-blue font-semibold tracking-wider uppercase text-sm">Experience</span>
-                    <h2 class="text-4xl font-bold text-slate-800 mt-2">Trailblazing Impact</h2>
-                    <div class="w-20 h-1.5 bg-sf-blue mx-auto mt-4 rounded-full"></div>
-                </div>
-                <div class="timeline">
-                    <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                        <div class="timeline-content card">
-                            <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
-                            <p class="text-slate-600 font-medium">Citi Developers, Dubai</p>
-                            <p class="text-slate-500 text-sm mb-3">Jun 2026 - Present</p>
-                            <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
-                                <li>Designed and maintained core real estate data model in Salesforce (Project, Tower Units, Payment Plan etc) to support unit inventory tracking, off-plan sales cycles, and multi-milestone payment schedules.</li>
-                                <li>Built Apex automation to manage installment records and delegate overdue-payment processing to batch Apex, keeping collection status synchronized with payment plan milestones.</li>
-                                <li>Translated business requirements into scalable technical solutions, including a bulk-safe Apex engine replicating a multi-tier commission decision tree across sales roles and an automated installment/payment-schedule tracking system.</li>
-                                <li>Built an error-logging framework to proactively alert the development team on system errors, improving platform reliability and reducing incident response time.</li>
-                                <li>Built dashboards and reporting covering opportunity pipeline, revenue, and agent commission performance to give sales and operations teams visibility into deal flow and payout accuracy.</li>
-                                <li>Collaborated with business stakeholders to challenge requirements, evaluate Salesforce versus external-system responsibilities, and recommend scalable technical solutions aligned with long-term platform strategy.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="timeline-container timeline-right" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                        <div class="timeline-content card">
-                            <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
-                            <p class="text-slate-600 font-medium">Altea Federation, Dubai, UAE</p>
-                            <p class="text-slate-500 text-sm mb-3">Jan 2025 – Jun 2026</p>
-                            <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
-                                <li>Collaborated with product owners, solution architects, and UX designers to deliver scalable Salesforce-based digital products, coordinating UAT with business stakeholders, owning post-deployment validation, and troubleshooting production issues.</li>
-                                <li>Delivered customer-centric digital products on B2B Commerce Cloud, designing self-service digital journeys and agent-facing tools that improved end-to-end customer experience and reduced friction across the buying lifecycle.</li>
-                                <li>Built and maintained integrations with CoolSales CPQ (ERP) system via REST/SOAP APIs using asynchronous patterns, improving operational efficiency and ensuring near real-time data sync.</li>
-                                <li>Designed and configured end-to-end Inventory ERP workflows within Salesforce B2B Commerce, managing stock levels, purchase orders, and goods receipt processes synchronized with external ERP systems.</li>
-                                <li>Introduced component-based architecture for LWC/Aura, creating reusable UI components and significantly reducing future development effort and time-to-market.</li>
-                                <li>Led frontend-focused CI/CD practices for Salesforce deployments using Git and Azure DevOps, reducing deployment-related downtime and improving release reliability.</li>
-                                <li>Translated UX/UI designs into responsive Lightning Web Components and Aura components, introducing a reusable, component-based architecture that reduced future development effort and accelerated time-to-market for new digital features.</li>
-                                <li>Acted as a primary Salesforce Support Owner, managing user access, profiles, permission sets, environment strategy (sandboxes/refreshes), and coordinating end-to-end release cycles.</li>
-                                <li>Implemented event-driven integration patterns using Salesforce Platform Events to enable real-time data synchronization between B2B Commerce and external ERP systems, reducing data latency and improving operational responsiveness.</li>
-                                <li>Developed and deployed agent-facing Service Cloud solutions, including case management workflows and service console customizations, improving agent efficiency and enabling unified customer support across web and mobile touchpoints.</li>
-                                <li>Designed, developed and maintained REST/SOAP API integrations between Salesforce and external ERP, payment and third-party systems using synchronous and asynchronous integration patterns.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="timeline-container timeline-left" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                        <div class="timeline-content card">
-                            <h3 class="text-2xl font-semibold text-blue-600">Salesforce Developer</h3>
-                            <p class="text-slate-600 font-medium">Cognizant Technology Solutions, India</p>
-                            <p class="text-slate-500 text-sm mb-3">Dec 2021 – Dec 2024</p>
-                            <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
-                                <li>Developed custom workflows, validation rules, and Apex triggers/classes in agile environments, following defined SDLC and code review practices.</li>
-                                <li>Optimized front-end performance and client-side caching for high-data-volume pages, reducing data processing time and improving user experience.</li>
-                                <li>Built LWC components aligned with UX requirements and governor limits, improving usability while maintaining platform performance.</li>
-                                <li>Automated key business processes with Apex and declarative tools, reducing manual effort for business teams.</li>
-                                <li>Used Git and Azure DevOps to manage source control and deployments, resolving complex defects and improving system performance.</li>
-                                <li>Designed and implemented real-time integrations between Salesforce and external ERP via RESTful web services, ensuring data consistency across platforms.</li>
-                                <li>Modeled lifecycle from lead capture to agreement on Salesforce, providing operational transparency for sales and operations teams.</li>
-                                <li>Configured CRM workflows for broker registration and property/asset listings, supporting core revenue operations.</li>
-                                <li>Implemented e-signature integrations, improving compliance and client onboarding experience.</li>
-                                <li>Designed and maintained user permissions and access controls, ensuring data security and compliance with organizational standards.</li>
-                                <li>Developed custom reports and dashboards for management, enabling better data-driven decisions and visibility.</li>
-                                <li>Configured and maintained Salesforce Experience Cloud (Communities) portals to support broker self-service journeys, enabling external users to access property listings, submit registrations, and track commission status without agent intervention.</li>
-                                <li>Prepared technical documentation for development processes and standards, supporting knowledge transfer and onboarding.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="timeline-container timeline-right" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                        <div class="timeline-content card">
-                            <h3 class="text-2xl font-semibold text-blue-600">Web Development Intern</h3>
-                            <p class="text-slate-600 font-medium">Shopsky India Pvt Ltd, India</p>
-                            <p class="text-slate-500 text-sm mb-3">Dec 2020 – Nov 2021</p>
-                            <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">
-                                <li>Developed and maintained blogging websites using PHP, HTML, CSS, JavaScript, and Bootstrap, building responsive front-end interfaces and content management systems.</li>
-                                <li>Designed payment pages and integrated payment gateways, ensuring secure transaction flows and user-friendly checkout experiences.</li>
-                                <li>Built custom CMS functionality for content publishing, user management, and media handling, improving website administration efficiency.</li>
-                                <li>Collaborated with design and backend teams to translate requirements into functional web applications, gaining foundational full-stack development experience.</li>
-                            </ul>
-                        </div>
-                    </div>
+          <article class="project-card reveal">
+            <div class="project-visual">
+              <div class="mock-window">
+                <div class="mock-chrome"><span></span><span></span><span></span></div>
+                <div class="mock-cases">
+                  <div class="mock-case"><span class="dot"></span><span class="lbl"></span><span class="tag">OPEN</span></div>
+                  <div class="mock-case"><span class="dot cyan"></span><span class="lbl" style="width:70%"></span><span class="tag">WIP</span></div>
+                  <div class="mock-case"><span class="dot muted"></span><span class="lbl" style="width:55%"></span><span class="tag">DONE</span></div>
+                  <div class="mock-case"><span class="dot"></span><span class="lbl" style="width:80%"></span><span class="tag">CASE</span></div>
                 </div>
               </div>
             </div>
@@ -1324,257 +1343,265 @@
       </div>
     </section>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Cards with Hover Effects -->
-                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
-                        <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
-                        <div class="flex justify-center mb-6">
-                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
-                                <i class="fas fa-award text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">Salesforce Certified Administrator (SCA)</h3>
-                    </div>
+    <!-- Expertise -->
+    <section class="section expertise" id="expertise">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Technologies &amp; Skills</div>
+            <h2>Tools I use to build scalable and efficient solutions.</h2>
+          </div>
+        </div>
 
-                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
-                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
-                        <div class="flex justify-center mb-6">
-                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
-                                <i class="fas fa-code text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">Salesforce Certified Platform Developer I</h3>
-                    </div>
+        <div class="skills-primary reveal">
+          <span class="skill-pill"><i class="fas fa-code" aria-hidden="true"></i>Apex</span>
+          <span class="skill-pill"><i class="fas fa-bolt" aria-hidden="true"></i>Lightning Web Components</span>
+          <span class="skill-pill"><i class="fas fa-diagram-project" aria-hidden="true"></i>Salesforce Flows</span>
+          <span class="skill-pill"><i class="fas fa-database" aria-hidden="true"></i>SOQL / SOSL</span>
+          <span class="skill-pill"><i class="fas fa-plug" aria-hidden="true"></i>REST and SOAP APIs</span>
+          <span class="skill-pill"><i class="fas fa-satellite-dish" aria-hidden="true"></i>Platform Events</span>
+          <span class="skill-pill"><i class="fas fa-cart-shopping" aria-hidden="true"></i>Salesforce B2B Commerce</span>
+          <span class="skill-pill"><i class="fas fa-cloud" aria-hidden="true"></i>Sales Cloud</span>
+          <span class="skill-pill"><i class="fas fa-headset" aria-hidden="true"></i>Service Cloud</span>
+          <span class="skill-pill"><i class="fas fa-globe" aria-hidden="true"></i>Experience Cloud</span>
+          <span class="skill-pill"><i class="fab fa-git-alt" aria-hidden="true"></i>Git and Azure DevOps</span>
+          <span class="skill-pill"><i class="fab fa-js" aria-hidden="true"></i>JavaScript</span>
+          <span class="skill-pill"><i class="fas fa-shield-halved" aria-hidden="true"></i>OAuth 2.0 and Salesforce Security</span>
+        </div>
 
-                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
-                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
-                        <div class="flex justify-center mb-6">
-                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
-                                <i class="fas fa-cubes text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">Salesforce Certified Platform App Builder</h3>
-                    </div>
+        <div class="skill-groups reveal">
+          <div class="skill-group">
+            <h3>Automation &amp; Data</h3>
+            <ul>
+              <li>Flows, Process Builder, Workflows</li>
+              <li>Validation Rules</li>
+              <li>Reports &amp; Dashboards</li>
+              <li>Batch Apex &amp; error logging</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Integrations</h3>
+            <ul>
+              <li>ERP synchronization patterns</li>
+              <li>Payment &amp; e-signature systems</li>
+              <li>Named Credentials &amp; Connected Apps</li>
+              <li>Event-driven architecture</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Platform &amp; Delivery</h3>
+            <ul>
+              <li>Profiles, Permission Sets, Sharing</li>
+              <li>Sandbox &amp; release management</li>
+              <li>CI/CD with Git &amp; Azure DevOps</li>
+              <li>Aura &amp; Visualforce (legacy support)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
-                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
-                        <div class="flex justify-center mb-6">
-                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
-                                <i class="fab fa-js text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">Salesforce JavaScript Developer I</h3>
-                    </div>
+    <!-- Experience -->
+    <section class="section experience" id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Experience</div>
+            <h2>From business complexity to reliable Salesforce solutions.</h2>
+            <p class="section-lead">I design, develop, and deploy Salesforce solutions that connect business processes, enterprise systems, and customer experiences.</p>
+          </div>
+        </div>
 
-                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
-                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
-                        <div class="flex justify-center mb-6">
-                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
-                                <i class="fas fa-laptop-code text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">Salesforce Certified Platform Developer II</h3>
-                    </div>
+        <div class="timeline">
+          <div class="tl-item tl-left reveal">
+            <span class="tl-node" aria-hidden="true"></span>
+            <article class="role-card">
+              <p class="role-company">Citi Developers · Dubai</p>
+              <h3>Salesforce Developer</h3>
+              <p class="role-meta">June 2026 – Present</p>
+              <ul>
+                <li>Designed and maintained the core real-estate data model (Project, Tower Units, Payment Plan) for unit inventory, off-plan sales, and multi-milestone payment schedules.</li>
+                <li>Built Apex automation for installment records and Batch Apex for overdue-payment processing, keeping collection status aligned with payment-plan milestones.</li>
+                <li>Translated business requirements into scalable solutions, including a bulk-safe commission engine and automated installment tracking.</li>
+                <li>Built an error-logging framework that alerts the team on system errors and improves platform reliability.</li>
+                <li>Built dashboards for opportunity pipeline, revenue, and agent commission performance.</li>
+                <li>Worked with stakeholders to separate Salesforce and external-system responsibilities and recommend a scalable platform approach.</li>
+              </ul>
+            </article>
+          </div>
 
-                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative">
-                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
-                        <div class="flex justify-center mb-6">
-                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
-                                <i class="fas fa-brain text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">Salesforce Certified AI Associate</h3>
-                    </div>
+          <div class="tl-item tl-right reveal">
+            <span class="tl-node" aria-hidden="true"></span>
+            <article class="role-card">
+              <p class="role-company">Altea Federation · Dubai, UAE</p>
+              <h3>Salesforce Developer</h3>
+              <p class="role-meta">January 2025 – June 2026</p>
+              <ul>
+                <li>Delivered Salesforce digital products with product owners, architects, and UX, including UAT, post-deployment validation, and production support.</li>
+                <li>Built B2B Commerce self-service journeys and agent-facing tools across the buying lifecycle.</li>
+                <li>Integrated CoolSales CPQ (ERP) through REST/SOAP APIs with asynchronous patterns for near real-time sync.</li>
+                <li>Configured inventory workflows for stock, purchase orders, and goods receipt synchronized with external ERP systems.</li>
+                <li>Introduced a reusable LWC/Aura component architecture and led Git and Azure DevOps deployment practices.</li>
+                <li>Implemented Platform Events for real-time B2B Commerce and ERP synchronization, plus Service Cloud case workflows.</li>
+                <li>Owned user access, profiles, permission sets, sandbox strategy, and release coordination as Salesforce support owner.</li>
+              </ul>
+            </article>
+          </div>
 
-                    <div class="group bg-white rounded-xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden relative sm:col-span-2 lg:col-span-1 lg:col-start-2">
-                         <div class="absolute top-0 right-0 bg-sf-blue text-white text-xs font-bold px-3 py-1 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">VERIFIED</div>
-                        <div class="flex justify-center mb-6">
-                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-sf-blue transition-colors duration-500">
-                                <i class="fas fa-microchip text-3xl text-sf-blue group-hover:text-white transition-colors duration-500"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-800 text-center mb-2 group-hover:text-sf-blue transition-colors">Salesforce AI Specialist</h3>
-                    </div>
-                </div>
+          <div class="tl-item tl-left reveal">
+            <span class="tl-node" aria-hidden="true"></span>
+            <article class="role-card">
+              <p class="role-company">Cognizant Technology Solutions · India</p>
+              <h3>Salesforce Developer</h3>
+              <p class="role-meta">December 2021 – December 2024</p>
+              <ul>
+                <li>Developed workflows, validation rules, and Apex triggers and classes in agile delivery with code review.</li>
+                <li>Built Lightning Web Components within governor limits and improved front-end performance on high-volume pages.</li>
+                <li>Automated business processes with Apex and declarative tools, and modeled the path from lead capture to agreement.</li>
+                <li>Integrated Salesforce with external ERP through REST, and implemented e-signature for client onboarding.</li>
+                <li>Configured broker registration, property listings, and Experience Cloud self-service portals for listings, registration, and commission status.</li>
+                <li>Maintained permissions, reports, dashboards, Git and Azure DevOps releases, and technical documentation.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="tl-item tl-right reveal">
+            <span class="tl-node" aria-hidden="true"></span>
+            <article class="role-card">
+              <p class="role-company">Shopsky India Pvt Ltd · India</p>
+              <h3>Web Development Intern</h3>
+              <p class="role-meta">December 2020 – November 2021</p>
+              <ul>
+                <li>Developed and maintained blogging sites with PHP, HTML, CSS, JavaScript, and Bootstrap.</li>
+                <li>Designed payment pages and integrated payment gateways for secure checkout.</li>
+                <li>Built CMS features for content publishing, user management, and media handling.</li>
+                <li>Worked with design and backend teams to turn requirements into working web applications.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="section certs" id="certifications">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Certifications</div>
+            <h2>Certified expertise. Continuous learning.</h2>
+          </div>
+        </div>
+
+        <div class="cert-grid">
+          <article class="cert-card reveal">
+            <div class="cert-badge" aria-hidden="true"><i class="fas fa-award"></i></div>
+            <h3>Salesforce Certified Administrator</h3>
+          </article>
+          <article class="cert-card reveal">
+            <div class="cert-badge" aria-hidden="true"><i class="fas fa-code"></i></div>
+            <h3>Salesforce Certified Platform Developer I</h3>
+          </article>
+          <article class="cert-card reveal">
+            <div class="cert-badge" aria-hidden="true"><i class="fas fa-cubes"></i></div>
+            <h3>Salesforce Certified Platform App Builder</h3>
+          </article>
+          <article class="cert-card reveal">
+            <div class="cert-badge" aria-hidden="true"><i class="fab fa-js"></i></div>
+            <h3>Salesforce JavaScript Developer I</h3>
+          </article>
+          <article class="cert-card reveal">
+            <div class="cert-badge" aria-hidden="true"><i class="fas fa-laptop-code"></i></div>
+            <h3>Salesforce Certified Platform Developer II</h3>
+          </article>
+          <article class="cert-card reveal">
+            <div class="cert-badge" aria-hidden="true"><i class="fas fa-brain"></i></div>
+            <h3>Salesforce AI Associate</h3>
+          </article>
+          <article class="cert-card reveal">
+            <div class="cert-badge" aria-hidden="true"><i class="fas fa-microchip"></i></div>
+            <h3>Salesforce AI Specialist</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="education" id="education">
+      <div class="container">
+        <div class="section-head reveal" style="margin-bottom:1.5rem;">
+          <div>
+            <div class="eyebrow">Education</div>
+            <h2 style="max-width:none;font-size:clamp(1.35rem,2.4vw,1.75rem);">Academic background</h2>
+          </div>
+        </div>
+        <div class="edu-list reveal">
+          <div class="edu-item">
+            <div>
+              <h3>Bachelor of Technology (B.Tech.), Computer Science</h3>
+              <p>Lucknow University</p>
             </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Skill Card -->
-                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
-                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
-                            <i class="fas fa-cloud mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>Salesforce Clouds
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Sales Cloud</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Service Cloud</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Experience Cloud</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">B2B Commerce Cloud</span>
-                        </div>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
-                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
-                            <i class="fas fa-cogs mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>Development
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Apex Classes & Triggers</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Lightning Web Components</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Visualforce</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Aura Components</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">JavaScript</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Field Service Lightning (FSL)</span>
-                        </div>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
-                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
-                            <i class="fas fa-code mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>Web Development
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">PHP</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">HTML</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">CSS</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">JavaScript</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Bootstrap</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Content Management Systems</span>
-                        </div>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
-                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
-                            <i class="fas fa-project-diagram mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>Integrations
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">REST/SOAP APIs</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Platform Events</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">ERP Integrations</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">NetSuite</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Fabrick Payments</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">DocuSign</span>
-                        </div>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
-                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
-                            <i class="fas fa-database mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>Automation & Data
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Flows</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Process Builder</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Workflows</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Validation Rules</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">SOQL/SOSL</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Reports & Dashboards</span>
-                        </div>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group">
-                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
-                            <i class="fas fa-shield-alt mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>Security
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Roles</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Profiles</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Permission Sets</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Sharing Rules</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">OAuth 2.0</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">SSO</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Connected Apps</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Named Credentials</span>
-                        </div>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-2xl hover:border-sf-blue transition-all duration-300 group md:col-span-2 lg:col-span-3">
-                        <h3 class="text-xl font-bold text-sf-blue mb-4 flex items-center">
-                            <i class="fas fa-tools mr-3 bg-blue-100 p-2 rounded-lg group-hover:bg-sf-blue group-hover:text-white transition-colors"></i>DevOps & Tools
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Git</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Azure DevOps</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Data Loader</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Workbench</span>
-                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-sf-blue hover:text-white transition-colors cursor-default">Sandbox and Release Management</span>
-                        </div>
-                    </div>
-                </div>
-             </div>
-        </section>
-
-        <!-- Education Section (INTERACTIVE) -->
-        <section id="education" class="py-20 md:py-28 bg-slate-50">
-             <div class="container mx-auto px-6" data-aos="fade-up">
-                <div class="text-center mb-16">
-                    <span class="text-sf-blue font-semibold tracking-wider uppercase text-sm">Background</span>
-                    <h2 class="text-4xl font-bold text-slate-800 mt-2">Education</h2>
-                    <div class="w-20 h-1.5 bg-sf-blue mx-auto mt-4 rounded-full"></div>
-                </div>
-                
-                <div class="max-w-4xl mx-auto space-y-6">
-                    <!-- Edu Item -->
-                     <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow flex flex-col md:flex-row justify-between items-center text-center md:text-left border-l-4 border-sf-blue">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-800">Bachelor of Technology (B.Tech.), Computer Science</h3>
-                            <p class="text-sf-blue font-medium">Lucknow University, India</p>
-                        </div>
-                        <div class="mt-4 md:mt-0">
-                             <span class="bg-blue-50 text-sf-blue px-4 py-2 rounded-full text-sm font-bold">2017 – 2021</span>
-                             <p class="text-sm text-gray-500 mt-2">CGPA: 7.3/10</p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow flex flex-col md:flex-row justify-between items-center text-center md:text-left border-l-4 border-gray-300">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-800">12th (CBSE)</h3>
-                            <p class="text-slate-600 font-medium">Rani Laxmi Bai Memorial School</p>
-                        </div>
-                        <div class="mt-4 md:mt-0">
-                             <span class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-bold">2016</span>
-                             <p class="text-sm text-gray-500 mt-2">87%</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow flex flex-col md:flex-row justify-between items-center text-center md:text-left border-l-4 border-gray-300">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-800">10th (CBSE)</h3>
-                            <p class="text-slate-600 font-medium">Rani Laxmi Bai Memorial School</p>
-                        </div>
-                        <div class="mt-4 md:mt-0">
-                             <span class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-bold">2014</span>
-                             <p class="text-sm text-gray-500 mt-2">95%</p>
-                        </div>
-                    </div>
-                </div>
-             </div>
-        </section>
-
-        <!-- Contact Section (INTERACTIVE) -->
-        <section id="contact" class="py-20 md:py-28 animated-bg text-white relative">
-            <div class="container mx-auto px-6 text-center relative z-10" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's Connect & Innovate!</h2>
-                <p class="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
-                    I'm always excited to discuss new projects, innovative ideas, or opportunities to contribute to the Salesforce ecosystem.
-                </p>
-                
-                <div class="flex flex-wrap justify-center gap-6">
-                    <a href="mailto:chandrasaurabh101999@gmail.com" class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/20 transition-all group flex flex-col items-center w-40">
-                        <i class="fas fa-envelope text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium">Email Me</span>
-                    </a>
-                    <a href="tel:0524208879" class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/20 transition-all group flex flex-col items-center w-40">
-                        <i class="fas fa-phone-alt text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium">0524208879</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/saurabh-c-8639a11b3/" target="_blank" class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/20 transition-all group flex flex-col items-center w-40">
-                        <i class="fab fa-linkedin text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium">LinkedIn</span>
-                    </a>
-                </div>
-
-                <div class="mt-16 text-blue-200 text-sm">
-                    <i class="fas fa-map-marker-alt mr-2 animate-bounce"></i> Dubai, UAE (Open to relocation within UAE)
-                </div>
+            <div class="edu-meta">
+              <span class="edu-year">2017–2021</span>
+              <span class="edu-grade">CGPA 7.3/10</span>
             </div>
-        </section>
+          </div>
+          <div class="edu-item">
+            <div>
+              <h3>12th, CBSE</h3>
+              <p>Rani Laxmi Bai Memorial School</p>
+            </div>
+            <div class="edu-meta">
+              <span class="edu-year">2016</span>
+              <span class="edu-grade">87%</span>
+            </div>
+          </div>
+          <div class="edu-item">
+            <div>
+              <h3>10th, CBSE</h3>
+              <p>Rani Laxmi Bai Memorial School</p>
+            </div>
+            <div class="edu-meta">
+              <span class="edu-year">2014</span>
+              <span class="edu-grade">95%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+      <div class="container contact-inner reveal">
+        <div class="eyebrow" style="justify-content:center;">Contact</div>
+        <h2>Let’s build something great together.</h2>
+        <p>Have a Salesforce challenge, an interesting idea, or an opportunity to collaborate? Let’s connect.</p>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="mailto:chandrasaurabh101999@gmail.com">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            Email Me
+          </a>
+          <a class="btn btn-secondary" href="https://www.linkedin.com/in/saurabh-c-8639a11b3/" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin" aria-hidden="true"></i>
+            Connect on LinkedIn
+          </a>
+          <a class="btn btn-secondary" href="assets/SaurabhChandraResumeUAE.pdf" download>
+            <i class="fas fa-download" aria-hidden="true"></i>
+            Download Resume
+          </a>
+        </div>
+        <p class="contact-meta">
+          <i class="fas fa-location-dot" aria-hidden="true"></i>
+          Dubai, UAE · Open to relocation within the UAE
+          · <a href="tel:+971524208879" style="color:var(--accent-cyan);font-weight:600;">0524208879</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year"></span> Saurabh Chandra. All rights reserved.</p>
     </div>
   </footer>
 
