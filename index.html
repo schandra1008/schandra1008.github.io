@@ -11,6 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="animations.css">
   <style>
     :root {
       /* Surfaces */
@@ -250,7 +252,7 @@
       transition: color 300ms var(--ease), background-color 300ms var(--ease);
     }
     .nav-links a:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); }
-    .nav-links a.active { color: var(--text); background: var(--surface-3); }
+    .nav-links a.active { color: var(--text); }
     .nav-cta { flex: none; }
 
     .nav-toggle {
@@ -320,7 +322,7 @@
 
     /* ——— Hero ——— */
     main { padding-top: var(--s-800); }
-    .hero { padding: var(--s-900) 0 var(--s-700); }
+    .hero { padding: var(--s-900) 0 var(--s-700); position: relative; overflow: hidden; }
     .hero-grid {
       display: grid;
       grid-template-columns: minmax(0, 680px) minmax(0, 1fr);
@@ -492,7 +494,17 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--s-50);
+      position: relative;
     }
+    .node-connectors {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .mock-nodes .mock-node { position: relative; z-index: 1; }
     .mock-node {
       display: grid;
       place-items: center;
@@ -836,13 +848,7 @@
     .back-top:hover { background: var(--surface-3); }
     .back-top:active { transform: scale(0.98); }
 
-    /* ——— Scroll reveal ——— */
-    .reveal {
-      opacity: 0;
-      transform: translateY(var(--s-400));
-      transition: opacity 700ms var(--ease), transform 700ms var(--ease);
-    }
-    .reveal.in { opacity: 1; transform: translateY(0); }
+    /* Scroll reveal lives in animations.css (progressive enhancement via html.js) */
 
     /* ——— Responsive ——— */
     @media (max-width: 1100px) {
@@ -911,7 +917,6 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .cloud-art, .status-dot::after { animation: none; }
-      .reveal, .reveal.in { transform: none; transition: opacity 700ms var(--ease); }
       .tagline-text .word { opacity: 1; transition: none; }
       .mobile-menu a { transform: none; }
       .project-card:hover,
@@ -937,7 +942,7 @@
       <a class="title-4" href="#certifications">Certifications</a>
       <a class="title-4" href="#contact">Contact</a>
     </div>
-    <a class="btn btn-primary button-sm nav-cta" href="assets/SaurabhChandraResumeUAE.pdf" download>
+    <a class="btn btn-primary button-sm nav-cta btn-ripple magnetic" href="assets/SaurabhChandraResumeUAE.pdf" download>
       <i class="ph ph-download-simple" aria-hidden="true"></i>
       Download Resume
     </a>
@@ -963,30 +968,32 @@
   <main id="main">
     <!-- Hero -->
     <header class="hero" id="home">
+      <div class="hero-aurora" aria-hidden="true"></div>
+      <div class="hero-spotlight" aria-hidden="true"></div>
       <div class="container hero-grid">
-        <div class="hero-copy-wrap reveal">
-          <div class="eyebrow caption-3">
+        <div class="hero-copy-wrap" data-hero-stage>
+          <div class="eyebrow caption-3" data-hero="eyebrow">
             <span class="status-dot" aria-hidden="true"></span>
             Salesforce Developer · Dubai, UAE
           </div>
-          <h1 class="heading-1">
+          <h1 class="heading-1" data-hero="headline">
             <span class="line">Building smarter</span>
             <span class="line">digital experiences</span>
             <span class="line">on Salesforce.</span>
           </h1>
-          <p class="hero-copy body-7" id="about">
+          <p class="hero-copy body-7" id="about" data-hero="copy">
             I’m Saurabh Chandra — a 7x Salesforce Certified Developer focused on scalable CRM platforms, B2B Commerce, integrations, and real-estate technology.
           </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary button-md" href="#work">
+          <div class="hero-actions" data-hero="actions">
+            <a class="btn btn-primary button-md btn-arrow magnetic" href="#work">
               Explore My Work
               <i class="ph ph-arrow-right" aria-hidden="true"></i>
             </a>
-            <a class="btn btn-secondary button-md" href="#contact">Let’s Connect</a>
+            <a class="btn btn-secondary button-md magnetic" href="#contact">Let’s Connect</a>
           </div>
         </div>
 
-        <div class="hero-visual reveal" aria-hidden="true">
+        <div class="hero-visual" data-hero="visual" aria-hidden="true">
           <svg class="cloud-art" viewBox="0 0 520 460" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Orbital rings -->
             <ellipse cx="260" cy="230" rx="190" ry="78" stroke="#313131" stroke-width="1.2"/>
@@ -1019,36 +1026,36 @@
             <path d="M168 236c0-34 27-62 62-62 8 0 16 1.5 23 4.5C265 152 291 138 320 138c42 0 76 32 78 73 28 5 49 29 49 58 0 33-27 60-60 60H188c-36 0-66-29-66-65 0-10 2.5-20 7-28z" fill="#168BFF"/>
             <path d="M190 228c6-18 22-30 42-30 5 0 10 .8 14 2.3C255 178 276 168 300 168c28 0 52 18 59 44 18 2 32 17 32 35 0 20-16 36-36 36H208c-22 0-40-18-40-40 0-5 1.2-10 3.5-15z" fill="#FFFFFF" opacity="0.14"/>
 
-            <!-- Floating panels -->
-            <g>
+            <!-- Floating panels (tech chips) -->
+            <g class="chip-float" style="--chip-i:0">
               <rect x="48" y="148" width="108" height="58" rx="12" fill="#181818" stroke="#313131"/>
               <text x="62" y="172" fill="#FFFFFF" font-size="10" font-family="Manrope, sans-serif" font-weight="600">Sales Cloud</text>
               <rect x="62" y="182" width="52" height="5" rx="2.5" fill="#168BFF"/>
               <rect x="62" y="192" width="36" height="5" rx="2.5" fill="#313131"/>
             </g>
-            <g>
+            <g class="chip-float" style="--chip-i:1">
               <rect x="368" y="128" width="118" height="58" rx="12" fill="#181818" stroke="#313131"/>
               <text x="382" y="152" fill="#FFFFFF" font-size="10" font-family="Manrope, sans-serif" font-weight="600">Service Cloud</text>
               <rect x="382" y="162" width="48" height="5" rx="2.5" fill="#168BFF"/>
               <rect x="382" y="172" width="70" height="5" rx="2.5" fill="#313131"/>
             </g>
-            <g>
+            <g class="chip-float" style="--chip-i:2">
               <rect x="28" y="268" width="122" height="58" rx="12" fill="#181818" stroke="#313131"/>
               <text x="42" y="292" fill="#FFFFFF" font-size="10" font-family="Manrope, sans-serif" font-weight="600">Experience Cloud</text>
               <rect x="42" y="302" width="60" height="5" rx="2.5" fill="#168BFF"/>
               <rect x="42" y="312" width="40" height="5" rx="2.5" fill="#313131"/>
             </g>
-            <g>
+            <g class="chip-float" style="--chip-i:3">
               <rect x="372" y="268" width="118" height="58" rx="12" fill="#181818" stroke="#313131"/>
               <text x="386" y="292" fill="#FFFFFF" font-size="10" font-family="Manrope, sans-serif" font-weight="600">B2B Commerce</text>
               <rect x="386" y="302" width="55" height="5" rx="2.5" fill="#168BFF"/>
               <rect x="386" y="312" width="72" height="5" rx="2.5" fill="#313131"/>
             </g>
-            <g>
+            <g class="chip-float" style="--chip-i:4">
               <rect x="168" y="58" width="78" height="42" rx="12" fill="#1F1F1F" stroke="#313131"/>
               <text x="188" y="84" fill="#9B9B9B" font-size="11" font-family="Manrope, sans-serif" font-weight="600">APIs</text>
             </g>
-            <g>
+            <g class="chip-float" style="--chip-i:5">
               <rect x="278" y="52" width="110" height="42" rx="12" fill="#1F1F1F" stroke="#313131"/>
               <text x="292" y="78" fill="#9B9B9B" font-size="11" font-family="Manrope, sans-serif" font-weight="600">Integrations</text>
             </g>
@@ -1060,19 +1067,19 @@
     <!-- Highlights -->
     <section class="section stats" aria-label="Professional highlights">
       <div class="container stats-row">
-        <div class="stat reveal">
-          <div class="stat-value accent heading-3">7</div>
+        <div class="stat reveal" data-delay="0">
+          <div class="stat-value accent heading-3" data-count="7">7</div>
           <div class="stat-label caption-3">Salesforce Certifications</div>
         </div>
-        <div class="stat reveal">
-          <div class="stat-value heading-3">5</div>
+        <div class="stat reveal" data-delay="70">
+          <div class="stat-value heading-3" data-count="5">5</div>
           <div class="stat-label caption-3">Years Experience</div>
         </div>
-        <div class="stat reveal">
-          <div class="stat-value accent heading-3">4</div>
+        <div class="stat reveal" data-delay="140">
+          <div class="stat-value accent heading-3" data-count="4">4</div>
           <div class="stat-label caption-3">Salesforce Clouds</div>
         </div>
-        <div class="stat reveal">
+        <div class="stat reveal" data-delay="210">
           <div class="stat-value accent heading-3" aria-hidden="true"><i class="ph ph-map-pin"></i></div>
           <div class="stat-label caption-3">Dubai, UAE</div>
         </div>
@@ -1094,7 +1101,7 @@
         </div>
 
         <div class="project-grid">
-          <article class="project-card reveal">
+          <article class="project-card reveal tilt-card" data-delay="0">
             <div class="project-visual" aria-hidden="true">
               <div class="mock-window">
                 <div class="mock-chrome"><span></span><span></span><span></span></div>
@@ -1131,21 +1138,25 @@
                 <span class="tag caption-4">Batch Apex</span>
                 <span class="tag caption-4">Salesforce Reports</span>
               </div>
-              <!-- <span class="project-more button-sm">Project details <i class="ph ph-arrow-right" aria-hidden="true"></i></span> -->
+              <span class="project-more button-sm">Project details <i class="ph ph-arrow-right" aria-hidden="true"></i></span>
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal tilt-card" data-delay="80">
             <div class="project-visual" aria-hidden="true">
               <div class="mock-window">
                 <div class="mock-chrome"><span></span><span></span><span></span></div>
                 <div class="mock-nodes">
-                  <div class="mock-node caption-3">ERP</div>
-                  <div class="mock-node caption-3">B2B</div>
-                  <div class="mock-node caption-3">PAY</div>
-                  <div class="mock-node caption-3">INV</div>
-                  <div class="mock-node caption-3">API</div>
-                  <div class="mock-node caption-3">SYNC</div>
+                  <svg class="node-connectors" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <path class="connector-path" d="M16 16 L50 50 L84 84" fill="none" stroke="#168BFF" stroke-width="1.2" stroke-opacity="0.45"/>
+                    <path class="connector-path" d="M16 16 L84 16" fill="none" stroke="#168BFF" stroke-width="1" stroke-opacity="0.25"/>
+                  </svg>
+                  <div class="mock-node caption-3 node-float" style="--ni:0">ERP</div>
+                  <div class="mock-node caption-3 node-float" style="--ni:1">B2B</div>
+                  <div class="mock-node caption-3 node-float" style="--ni:2">PAY</div>
+                  <div class="mock-node caption-3 node-float" style="--ni:3">INV</div>
+                  <div class="mock-node caption-3 node-float" style="--ni:4">API</div>
+                  <div class="mock-node caption-3 node-float" style="--ni:5">SYNC</div>
                 </div>
               </div>
             </div>
@@ -1158,19 +1169,19 @@
                 <span class="tag caption-4">Platform Events</span>
                 <span class="tag caption-4">Azure DevOps</span>
               </div>
-              <!-- <span class="project-more button-sm">Project details <i class="ph ph-arrow-right" aria-hidden="true"></i></span> -->
+              <span class="project-more button-sm">Project details <i class="ph ph-arrow-right" aria-hidden="true"></i></span>
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal tilt-card" data-delay="160">
             <div class="project-visual" aria-hidden="true">
               <div class="mock-window">
                 <div class="mock-chrome"><span></span><span></span><span></span></div>
-                <div class="mock-cases">
-                  <div class="mock-case"><span class="dot"></span><span class="lbl"></span><span class="tag-mini caption-3">OPEN</span></div>
-                  <div class="mock-case"><span class="dot cyan"></span><span class="lbl" style="width:70%"></span><span class="tag-mini caption-3">WIP</span></div>
-                  <div class="mock-case"><span class="dot muted"></span><span class="lbl" style="width:55%"></span><span class="tag-mini caption-3">DONE</span></div>
-                  <div class="mock-case"><span class="dot"></span><span class="lbl" style="width:80%"></span><span class="tag-mini caption-3">CASE</span></div>
+                <div class="mock-cases" data-workflow>
+                  <div class="mock-case" data-step="0"><span class="dot"></span><span class="lbl"></span><span class="tag-mini caption-3">OPEN</span></div>
+                  <div class="mock-case" data-step="1"><span class="dot cyan"></span><span class="lbl" style="width:70%"></span><span class="tag-mini caption-3">WIP</span></div>
+                  <div class="mock-case" data-step="2"><span class="dot muted"></span><span class="lbl" style="width:55%"></span><span class="tag-mini caption-3">DONE</span></div>
+                  <div class="mock-case" data-step="3"><span class="dot"></span><span class="lbl" style="width:80%"></span><span class="tag-mini caption-3">CASE</span></div>
                 </div>
               </div>
             </div>
@@ -1183,7 +1194,7 @@
                 <span class="tag caption-4">Apex</span>
                 <span class="tag caption-4">LWC</span>
               </div>
-              <!-- <span class="project-more button-sm">Project details <i class="ph ph-arrow-right" aria-hidden="true"></i></span> -->
+              <span class="project-more button-sm">Project details <i class="ph ph-arrow-right" aria-hidden="true"></i></span>
             </div>
           </article>
         </div>
@@ -1200,26 +1211,26 @@
           </div>
         </div>
 
-        <div class="skills-primary reveal">
-          <span class="skill-pill body-5"><i class="ph ph-code" aria-hidden="true"></i>Apex</span>
-          <span class="skill-pill body-5"><i class="ph ph-lightning" aria-hidden="true"></i>Lightning Web Components</span>
-          <span class="skill-pill body-5"><i class="ph ph-flow-arrow" aria-hidden="true"></i>Salesforce Flows</span>
-          <span class="skill-pill body-5"><i class="ph ph-database" aria-hidden="true"></i>SOQL / SOSL</span>
-          <span class="skill-pill body-5"><i class="ph ph-plugs-connected" aria-hidden="true"></i>REST and SOAP APIs</span>
-          <span class="skill-pill body-5"><i class="ph ph-broadcast" aria-hidden="true"></i>Platform Events</span>
-          <span class="skill-pill body-5"><i class="ph ph-shopping-cart" aria-hidden="true"></i>Salesforce B2B Commerce</span>
-          <span class="skill-pill body-5"><i class="ph ph-cloud" aria-hidden="true"></i>Sales Cloud</span>
-          <span class="skill-pill body-5"><i class="ph ph-headset" aria-hidden="true"></i>Service Cloud</span>
-          <span class="skill-pill body-5"><i class="ph ph-globe" aria-hidden="true"></i>Experience Cloud</span>
-          <span class="skill-pill body-5"><i class="ph ph-git-branch" aria-hidden="true"></i>Git and Azure DevOps</span>
-          <span class="skill-pill body-5"><i class="ph ph-file-js" aria-hidden="true"></i>JavaScript</span>
-          <span class="skill-pill body-5"><i class="ph ph-shield-check" aria-hidden="true"></i>OAuth 2.0 and Salesforce Security</span>
+        <div class="skills-primary reveal-children" data-stagger="55">
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-code" aria-hidden="true"></i>Apex</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-lightning" aria-hidden="true"></i>Lightning Web Components</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-flow-arrow" aria-hidden="true"></i>Salesforce Flows</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-database" aria-hidden="true"></i>SOQL / SOSL</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-plugs-connected" aria-hidden="true"></i>REST and SOAP APIs</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-broadcast" aria-hidden="true"></i>Platform Events</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-shopping-cart" aria-hidden="true"></i>Salesforce B2B Commerce</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-cloud" aria-hidden="true"></i>Sales Cloud</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-headset" aria-hidden="true"></i>Service Cloud</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-globe" aria-hidden="true"></i>Experience Cloud</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-git-branch" aria-hidden="true"></i>Git and Azure DevOps</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-file-js" aria-hidden="true"></i>JavaScript</span>
+          <span class="skill-pill body-5 magnetic"><i class="ph ph-shield-check" aria-hidden="true"></i>OAuth 2.0 and Salesforce Security</span>
         </div>
 
-        <div class="skill-groups reveal">
+        <div class="skill-groups reveal-children" data-stagger="90">
           <div class="skill-group">
             <h3 class="caption-3">Automation &amp; Data</h3>
-            <ul class="dot-list body-6">
+            <ul class="dot-list body-6 reveal-children" data-stagger="60">
               <li>Flows, Process Builder, Workflows</li>
               <li>Validation Rules</li>
               <li>Reports &amp; Dashboards</li>
@@ -1228,7 +1239,7 @@
           </div>
           <div class="skill-group">
             <h3 class="caption-3">Integrations</h3>
-            <ul class="dot-list body-6">
+            <ul class="dot-list body-6 reveal-children" data-stagger="60">
               <li>ERP synchronization patterns</li>
               <li>Payment &amp; e-signature systems</li>
               <li>Named Credentials &amp; Connected Apps</li>
@@ -1237,7 +1248,7 @@
           </div>
           <div class="skill-group">
             <h3 class="caption-3">Platform &amp; Delivery</h3>
-            <ul class="dot-list body-6">
+            <ul class="dot-list body-6 reveal-children" data-stagger="60">
               <li>Profiles, Permission Sets, Sharing</li>
               <li>Sandbox &amp; release management</li>
               <li>CI/CD with Git &amp; Azure DevOps</li>
@@ -1272,14 +1283,15 @@
           </div>
         </div>
 
-        <div class="timeline">
-          <div class="tl-item tl-left reveal">
+        <div class="timeline" data-timeline>
+          <div class="tl-progress" aria-hidden="true"><span class="tl-progress__bar"></span></div>
+          <div class="tl-item tl-left reveal" data-delay="0">
             <span class="tl-node" aria-hidden="true"></span>
             <article class="role-card">
               <p class="role-company caption-3">Citi Developers · Dubai</p>
               <h3 class="title-1">Salesforce Developer</h3>
               <p class="role-meta caption-1">June 2026 – Present</p>
-              <ul class="dot-list body-6">
+              <ul class="dot-list body-6 reveal-children" data-stagger="55">
                 <li>Designed and maintained the core real-estate data model (Project, Tower Units, Payment Plan) for unit inventory, off-plan sales, and multi-milestone payment schedules.</li>
                 <li>Built Apex automation for installment records and Batch Apex for overdue-payment processing, keeping collection status aligned with payment-plan milestones.</li>
                 <li>Translated business requirements into scalable solutions, including a bulk-safe commission engine and automated installment tracking.</li>
@@ -1290,13 +1302,13 @@
             </article>
           </div>
 
-          <div class="tl-item tl-right reveal">
+          <div class="tl-item tl-right reveal" data-delay="60">
             <span class="tl-node" aria-hidden="true"></span>
             <article class="role-card">
               <p class="role-company caption-3">Altea Federation · Dubai, UAE</p>
               <h3 class="title-1">Salesforce Developer</h3>
               <p class="role-meta caption-1">January 2025 – June 2026</p>
-              <ul class="dot-list body-6">
+              <ul class="dot-list body-6 reveal-children" data-stagger="55">
                 <li>Delivered Salesforce digital products with product owners, architects, and UX, including UAT, post-deployment validation, and production support.</li>
                 <li>Built B2B Commerce self-service journeys and agent-facing tools across the buying lifecycle.</li>
                 <li>Integrated CoolSales CPQ (ERP) through REST/SOAP APIs with asynchronous patterns for near real-time sync.</li>
@@ -1308,13 +1320,13 @@
             </article>
           </div>
 
-          <div class="tl-item tl-left reveal">
+          <div class="tl-item tl-left reveal" data-delay="120">
             <span class="tl-node" aria-hidden="true"></span>
             <article class="role-card">
               <p class="role-company caption-3">Cognizant Technology Solutions · India</p>
               <h3 class="title-1">Salesforce Developer</h3>
               <p class="role-meta caption-1">December 2021 – December 2024</p>
-              <ul class="dot-list body-6">
+              <ul class="dot-list body-6 reveal-children" data-stagger="55">
                 <li>Developed workflows, validation rules, and Apex triggers and classes in agile delivery with code review.</li>
                 <li>Built Lightning Web Components within governor limits and improved front-end performance on high-volume pages.</li>
                 <li>Automated business processes with Apex and declarative tools, and modeled the path from lead capture to agreement.</li>
@@ -1325,13 +1337,13 @@
             </article>
           </div>
 
-          <div class="tl-item tl-right reveal">
+          <div class="tl-item tl-right reveal" data-delay="180">
             <span class="tl-node" aria-hidden="true"></span>
             <article class="role-card">
               <p class="role-company caption-3">Shopsky India Pvt Ltd · India</p>
               <h3 class="title-1">Web Development Intern</h3>
               <p class="role-meta caption-1">December 2020 – November 2021</p>
-              <ul class="dot-list body-6">
+              <ul class="dot-list body-6 reveal-children" data-stagger="55">
                 <li>Developed and maintained blogging sites with PHP, HTML, CSS, JavaScript, and Bootstrap.</li>
                 <li>Designed payment pages and integrated payment gateways for secure checkout.</li>
                 <li>Built CMS features for content publishing, user management, and media handling.</li>
@@ -1354,31 +1366,31 @@
         </div>
 
         <div class="cert-grid">
-          <article class="cert-card reveal">
+          <article class="cert-card reveal shine-card" data-delay="0">
             <div class="cert-badge" aria-hidden="true"><i class="ph ph-medal"></i></div>
             <h3 class="title-3">Salesforce Certified Administrator</h3>
           </article>
-          <article class="cert-card reveal">
+          <article class="cert-card reveal shine-card" data-delay="50">
             <div class="cert-badge" aria-hidden="true"><i class="ph ph-code"></i></div>
             <h3 class="title-3">Salesforce Certified Platform Developer I</h3>
           </article>
-          <article class="cert-card reveal">
+          <article class="cert-card reveal shine-card" data-delay="100">
             <div class="cert-badge" aria-hidden="true"><i class="ph ph-cube"></i></div>
             <h3 class="title-3">Salesforce Certified Platform App Builder</h3>
           </article>
-          <article class="cert-card reveal">
+          <article class="cert-card reveal shine-card" data-delay="150">
             <div class="cert-badge" aria-hidden="true"><i class="ph ph-file-js"></i></div>
             <h3 class="title-3">Salesforce JavaScript Developer I</h3>
           </article>
-          <article class="cert-card reveal">
+          <article class="cert-card reveal shine-card" data-delay="200">
             <div class="cert-badge" aria-hidden="true"><i class="ph ph-laptop"></i></div>
             <h3 class="title-3">Salesforce Certified Platform Developer II</h3>
           </article>
-          <article class="cert-card reveal">
+          <article class="cert-card reveal shine-card" data-delay="250">
             <div class="cert-badge" aria-hidden="true"><i class="ph ph-brain"></i></div>
             <h3 class="title-3">Salesforce AI Associate</h3>
           </article>
-          <article class="cert-card reveal">
+          <article class="cert-card reveal shine-card" data-delay="300">
             <div class="cert-badge" aria-hidden="true"><i class="ph ph-cpu"></i></div>
             <h3 class="title-3">Salesforce AI Specialist</h3>
           </article>
@@ -1435,19 +1447,19 @@
       <div class="container">
         <div class="contact-card reveal">
           <div class="contact-inner">
-            <div class="eyebrow caption-3 center">Contact</div>
-            <h2 class="heading-2">Let’s build something great together.</h2>
-            <p class="contact-lead body-7">Have a Salesforce challenge, an interesting idea, or an opportunity to collaborate? Let’s connect.</p>
-            <div class="contact-actions">
-              <a class="btn btn-primary button-md" href="mailto:chandrasaurabh101999@gmail.com">
+            <div class="eyebrow caption-3 center" data-contact="eyebrow">Contact</div>
+            <h2 class="heading-2" data-contact="heading">Let’s build something great together.</h2>
+            <p class="contact-lead body-7" data-contact="lead">Have a Salesforce challenge, an interesting idea, or an opportunity to collaborate? Let’s connect.</p>
+            <div class="contact-actions" data-contact="actions">
+              <a class="btn btn-primary button-md btn-pulse magnetic" href="mailto:chandrasaurabh101999@gmail.com">
                 <i class="ph ph-envelope-simple" aria-hidden="true"></i>
                 Email Me
               </a>
-              <a class="btn btn-secondary button-md" href="https://www.linkedin.com/in/saurabh-c-8639a11b3/" target="_blank" rel="noopener noreferrer">
+              <a class="btn btn-secondary button-md magnetic" href="https://www.linkedin.com/in/saurabh-c-8639a11b3/" target="_blank" rel="noopener noreferrer">
                 <i class="ph ph-linkedin-logo" aria-hidden="true"></i>
                 Connect on LinkedIn
               </a>
-              <a class="btn btn-secondary button-md" href="assets/SaurabhChandraResumeUAE.pdf" download>
+              <a class="btn btn-secondary button-md btn-ripple magnetic" href="assets/SaurabhChandraResumeUAE.pdf" download>
                 <i class="ph ph-download-simple" aria-hidden="true"></i>
                 Download Resume
               </a>
@@ -1463,7 +1475,7 @@
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer reveal">
     <div class="container">
       <p class="caption-2">© <span id="year"></span> Saurabh Chandra. All rights reserved.</p>
     </div>
@@ -1481,9 +1493,6 @@
       const backTop = document.getElementById('back-top');
       const year = document.getElementById('year');
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      // In document order so the last section above the trigger line wins.
-      const sectionIds = ['about', 'work', 'expertise', 'experience', 'certifications', 'contact'];
-      const navAnchors = document.querySelectorAll('.nav-links a, .mobile-menu a[href^="#"]');
 
       if (year) year.textContent = String(new Date().getFullYear());
 
@@ -1537,7 +1546,7 @@
       }
 
       function updateTagline() {
-        if (lit >= words.length) return;
+        if (!tagline || lit >= words.length) return;
         const rect = tagline.getBoundingClientRect();
         const vh = window.innerHeight;
         const start = vh * 0.85;
@@ -1550,59 +1559,24 @@
         }
       }
 
-      /* Scroll state, throttled to one update per frame */
-      function update() {
-        const y = window.scrollY || 0;
-        nav.classList.toggle('scrolled', y > 12);
-        backTop.classList.toggle('show', y > 500);
-
-        let current = 'about';
-        for (const id of sectionIds) {
-          const el = document.getElementById(id);
-          if (el && el.getBoundingClientRect().top <= 140) current = id;
-        }
-        if (window.innerHeight + y >= document.documentElement.scrollHeight - 4) current = 'contact';
-        navAnchors.forEach((a) => {
-          const isActive = a.getAttribute('href') === '#' + current;
-          a.classList.toggle('active', isActive);
-          if (isActive) a.setAttribute('aria-current', 'true');
-          else a.removeAttribute('aria-current');
-        });
-
-        updateTagline();
-      }
-
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (ticking) return;
         ticking = true;
         requestAnimationFrame(() => {
           ticking = false;
-          update();
+          updateTagline();
         });
       }, { passive: true });
-      window.addEventListener('resize', update, { passive: true });
-      update();
+      updateTagline();
 
-      backTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-      });
-
-      /* Section reveals */
-      if ('IntersectionObserver' in window) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('in');
-              io.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-      } else {
-        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+      if (backTop) {
+        backTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+        });
       }
     })();
   </script>
+  <script src="animations.js" defer></script>
 </body>
 </html>
