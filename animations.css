@@ -1,0 +1,624 @@
+/* =============================================================================
+   Portfolio motion layer — foundations + section animations
+   Timing knobs live in :root below. Prefer transform/opacity only.
+   ============================================================================= */
+
+:root {
+  /* Global timing — tweak these to retune the whole site */
+  --motion-duration: 0.65s;
+  --motion-duration-fast: 0.4s;
+  --motion-duration-slow: 0.8s;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-stagger: 70ms;
+  --motion-reveal-y: 24px;
+  --nav-offset: 96px;
+  --progress-h: 2px;
+}
+
+/* ——— Progressive enhancement: hide reveals only when JS is active ——— */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(var(--motion-reveal-y));
+  transition:
+    opacity var(--motion-duration) var(--motion-ease),
+    transform var(--motion-duration) var(--motion-ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+html.js .reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+
+html.js .reveal-children > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--motion-duration-fast) var(--motion-ease),
+    transform var(--motion-duration-fast) var(--motion-ease);
+  transition-delay: var(--child-delay, 0ms);
+}
+
+html.js .reveal-children.in > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ——— Scroll progress ——— */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  height: var(--progress-h);
+  width: 100%;
+  pointer-events: none;
+  background: transparent;
+}
+
+.scroll-progress__bar {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  will-change: transform;
+}
+
+/* ——— Nav: shrink + underline scroll-spy ——— */
+.nav {
+  transition:
+    background-color 300ms var(--motion-ease),
+    border-color 300ms var(--motion-ease),
+    padding 300ms var(--motion-ease),
+    transform 300ms var(--motion-ease),
+    box-shadow 300ms var(--motion-ease);
+}
+
+.nav.scrolled {
+  padding: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.nav.scrolled .logo {
+  width: 36px;
+  height: 36px;
+}
+
+.logo {
+  transition:
+    background-color 300ms var(--motion-ease),
+    width 300ms var(--motion-ease),
+    height 300ms var(--motion-ease);
+}
+
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 6px;
+  height: 1.5px;
+  border-radius: var(--r-full);
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 300ms var(--motion-ease);
+  pointer-events: none;
+}
+
+.nav-links a.active {
+  color: var(--text);
+  background: transparent;
+}
+
+.nav-links a.active::after {
+  transform: scaleX(1);
+}
+
+.nav-links a:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 980px) {
+  .nav-links a::after { display: none; }
+  .nav-links a.active { background: var(--surface-3); }
+}
+
+/* ——— Reduced motion ——— */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration: 0.01ms;
+    --motion-duration-fast: 0.01ms;
+    --motion-duration-slow: 0.01ms;
+    --motion-stagger: 0ms;
+  }
+
+  html { scroll-behavior: auto; }
+
+  html.js .reveal,
+  html.js .reveal.in,
+  html.js .reveal-children > *,
+  html.js .reveal-children.in > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .scroll-progress__bar {
+    transition: none;
+  }
+
+  .nav,
+  .nav.scrolled,
+  .logo {
+    transition: none;
+  }
+
+  .nav-links a::after {
+    transition: none;
+  }
+}
+
+/* =============================================================================
+   Phase B — Hero signature
+   ============================================================================= */
+
+.hero-aurora,
+.hero-spotlight {
+  position: absolute;
+  inset: -20% -10% auto;
+  height: min(70vh, 640px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-aurora {
+  background:
+    radial-gradient(ellipse 55% 50% at 28% 40%, rgba(22, 139, 255, 0.22), transparent 70%),
+    radial-gradient(ellipse 45% 40% at 72% 30%, rgba(61, 158, 255, 0.12), transparent 70%),
+    radial-gradient(ellipse 40% 35% at 50% 70%, rgba(22, 139, 255, 0.08), transparent 70%);
+  filter: blur(40px);
+  opacity: 0.85;
+  animation: aurora-drift 18s var(--motion-ease) infinite alternate;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero-spotlight {
+  inset: 0;
+  height: auto;
+  background: radial-gradient(
+    420px circle at var(--spot-x, 50%) var(--spot-y, 35%),
+    rgba(22, 139, 255, 0.14),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 400ms var(--motion-ease);
+}
+
+.hero.has-spotlight .hero-spotlight {
+  opacity: 1;
+}
+
+@keyframes aurora-drift {
+  from { transform: translate3d(-2%, -1%, 0) scale(1); }
+  to { transform: translate3d(3%, 2%, 0) scale(1.05); }
+}
+
+/* Masked line/word reveal — space reserved by .line block layout */
+html.js .hero [data-hero="eyebrow"],
+html.js .hero [data-hero="copy"],
+html.js .hero [data-hero="actions"],
+html.js .hero [data-hero="visual"] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--motion-duration) var(--motion-ease),
+    transform var(--motion-duration) var(--motion-ease);
+}
+
+html.js .hero.is-ready [data-hero="eyebrow"] {
+  opacity: 1;
+  transform: none;
+  transition-delay: var(--hero-eyebrow-delay, 280ms);
+}
+
+html.js .hero.is-ready [data-hero="copy"] {
+  opacity: 1;
+  transform: none;
+  transition-delay: var(--hero-copy-delay, 420ms);
+}
+
+html.js .hero.is-ready [data-hero="actions"] {
+  opacity: 1;
+  transform: none;
+  transition-delay: var(--hero-actions-delay, 520ms);
+}
+
+html.js .hero.is-ready [data-hero="visual"] {
+  opacity: 1;
+  transform: none;
+  transition-delay: var(--hero-visual-delay, 380ms);
+}
+
+html.js .hero [data-hero="visual"] {
+  transition-duration: var(--motion-duration-slow);
+}
+
+html.js .hero .line {
+  display: block !important; /* keep mask; ignore mobile .line inline */
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+html.js .hero .line .word {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform var(--motion-duration) var(--motion-ease);
+  transition-delay: calc(var(--w-i, 0) * var(--motion-stagger));
+  will-change: transform;
+  /* Solid fill — per-word gradients looked patchy vs the original H1 wash */
+  background: none;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+html.js .hero.is-ready .line .word {
+  transform: translateY(0);
+  will-change: auto;
+}
+
+/* SVG tech chip float */
+.cloud-art .chip-float {
+  animation: chip-bob 5.5s var(--ease-float) infinite alternate;
+  animation-delay: calc(var(--chip-i, 0) * -0.7s);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes chip-bob {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora { animation: none; filter: blur(28px); opacity: 0.5; }
+  .hero-spotlight { display: none; }
+
+  html.js .hero [data-hero="eyebrow"],
+  html.js .hero [data-hero="copy"],
+  html.js .hero [data-hero="actions"],
+  html.js .hero [data-hero="visual"],
+  html.js .hero .line .word {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .cloud-art .chip-float { animation: none; }
+}
+
+/* =============================================================================
+   Phase C — Stats, work cards, skills
+   ============================================================================= */
+
+/* Project card tilt + cursor glow */
+.tilt-card {
+  position: relative;
+  transform-style: preserve-3d;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --glow-x: 50%;
+  --glow-y: 50%;
+}
+
+.tilt-card.is-tilting {
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-4px);
+  transition: transform 80ms linear;
+}
+
+.tilt-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms var(--motion-ease);
+  background: radial-gradient(
+    320px circle at var(--glow-x) var(--glow-y),
+    rgba(22, 139, 255, 0.28),
+    transparent 55%
+  );
+  z-index: 0;
+}
+
+.tilt-card.is-tilting::before { opacity: 1; }
+.tilt-card > * { position: relative; z-index: 1; }
+
+/* Mini badge float + connector draw */
+.node-float {
+  animation: node-float 4.2s var(--ease-float) infinite alternate;
+  animation-delay: calc(var(--ni, 0) * -0.55s);
+}
+
+@keyframes node-float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-4px); }
+}
+
+.connector-path {
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+}
+
+html.js .project-card.in .connector-path {
+  animation: draw-line 1.2s var(--motion-ease) forwards;
+  animation-delay: 0.25s;
+}
+
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Workflow highlight cycle OPEN → WIP → DONE → CASE */
+[data-workflow] .mock-case {
+  transition: background-color 300ms var(--motion-ease), box-shadow 300ms var(--motion-ease);
+}
+
+[data-workflow] .mock-case.is-active {
+  background: rgba(22, 139, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(22, 139, 255, 0.35);
+}
+
+[data-workflow] .mock-case.is-active .tag-mini {
+  color: var(--accent);
+}
+
+/* Skill pills */
+.skill-pill {
+  transition:
+    transform 400ms var(--motion-ease),
+    background-color 300ms var(--motion-ease),
+    border-color 300ms var(--motion-ease),
+    box-shadow 300ms var(--motion-ease);
+}
+
+.skill-pill:hover {
+  box-shadow: 0 0 0 1px rgba(22, 139, 255, 0.35), 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.magnetic {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card.is-tilting { transform: none; transition: none; }
+  .tilt-card::before { display: none; }
+  .node-float { animation: none; }
+  .connector-path { stroke-dashoffset: 0; animation: none; }
+  [data-workflow] .mock-case { transition: none; }
+  .magnetic { will-change: auto; }
+}
+
+/* =============================================================================
+   Phase D — Experience timeline + certifications
+   ============================================================================= */
+
+.timeline {
+  --tl-progress: 0;
+}
+
+.tl-progress {
+  position: absolute;
+  top: var(--s-300);
+  bottom: var(--s-300);
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--line);
+  border-radius: var(--r-full);
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.tl-progress__bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: top center;
+  transform: scaleY(var(--tl-progress, 0));
+  background: linear-gradient(180deg, var(--accent), rgba(22, 139, 255, 0.2));
+  will-change: transform;
+}
+
+@media (max-width: 860px) {
+  .tl-progress {
+    left: 7px;
+    margin-left: 0;
+  }
+}
+
+.tl-item .tl-node {
+  transition:
+    background-color 400ms var(--motion-ease),
+    box-shadow 400ms var(--motion-ease),
+    transform 400ms var(--motion-ease);
+}
+
+.tl-item.in .tl-node,
+.tl-item.is-active .tl-node {
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 0 16px rgba(22, 139, 255, 0.45);
+  transform: scale(1.15);
+}
+
+/* Cert shine sweep */
+.shine-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.12) 48%,
+    transparent 62%
+  );
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.shine-card:hover::after {
+  animation: shine-sweep 0.85s var(--motion-ease);
+}
+
+@keyframes shine-sweep {
+  to { transform: translateX(120%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-progress__bar { transform: scaleY(1); will-change: auto; }
+  .tl-item .tl-node { transition: none; transform: none; }
+  .shine-card::after { display: none; }
+}
+
+/* =============================================================================
+   Phase E — Contact, buttons, cursor polish
+   ============================================================================= */
+
+/* Explore My Work — arrow slide */
+.btn-arrow .ph-arrow-right {
+  transition: transform 400ms var(--motion-ease);
+}
+.btn-arrow:hover .ph-arrow-right {
+  transform: translateX(6px);
+}
+
+/* Download Resume — ripple fill */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-ripple::after {
+  content: "";
+  position: absolute;
+  left: var(--ripple-x, 50%);
+  top: var(--ripple-y, 50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.btn-ripple.is-rippling::after {
+  animation: btn-ripple 0.65s var(--motion-ease);
+}
+@keyframes btn-ripple {
+  0% { opacity: 0.7; transform: translate(-50%, -50%) scale(0); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(28); }
+}
+
+/* Email Me — gentle pulse glow */
+.btn-pulse {
+  animation: pulse-glow 2.8s var(--ease-float) infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(22, 139, 255, 0.35); }
+  50% { box-shadow: 0 0 0 10px rgba(22, 139, 255, 0); }
+}
+
+/* Contact text reveal when card enters */
+html.js .contact-card [data-contact] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--motion-duration) var(--motion-ease),
+    transform var(--motion-duration) var(--motion-ease);
+}
+html.js .contact-card.in [data-contact="eyebrow"] {
+  opacity: 1; transform: none; transition-delay: 0ms;
+}
+html.js .contact-card.in [data-contact="heading"] {
+  opacity: 1; transform: none; transition-delay: 70ms;
+}
+html.js .contact-card.in [data-contact="lead"] {
+  opacity: 1; transform: none; transition-delay: 140ms;
+}
+html.js .contact-card.in [data-contact="actions"] {
+  opacity: 1; transform: none; transition-delay: 210ms;
+}
+
+/* Custom cursor — fine pointer only; native cursor stays visible as fallback */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 300;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+}
+.cursor-ring {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  transition: width 200ms var(--motion-ease), height 200ms var(--motion-ease), opacity 200ms ease;
+}
+html.has-cursor .cursor-dot,
+html.has-cursor .cursor-ring { opacity: 1; }
+html.has-cursor .cursor-ring.is-hot {
+  width: 44px;
+  height: 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-arrow:hover .ph-arrow-right { transform: none; }
+  .btn-ripple::after { display: none; }
+  .btn-pulse { animation: none; }
+  html.js .contact-card [data-contact] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .cursor-dot,
+  .cursor-ring { display: none !important; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring { display: none !important; }
+}
